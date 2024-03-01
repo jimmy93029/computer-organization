@@ -1,0 +1,13 @@
+# DESCRIPTION: Verilator output: Timestamp data for --skip-identical.  Delete at will.
+C "--cc fullAdder.v"
+S   7892640  1077593  1709128375   542980056  1598506306           0 "/usr/bin/verilator_bin"
+S       311   545950  1708911669   957287498  1708911669   957287498 "fullAdder.v"
+T      3667   532776  1709129008   963945420  1709129008   963945420 "obj_dir/VfullAdder.cpp"
+T      2522   532774  1709129008   959945184  1709129008   959945184 "obj_dir/VfullAdder.h"
+T      1447   532778  1709129008   963945420  1709129008   963945420 "obj_dir/VfullAdder.mk"
+T      1778   532775  1709129008   963945420  1709129008   963945420 "obj_dir/VfullAdder__Slow.cpp"
+T       559   532771  1709129008   959945184  1709129008   959945184 "obj_dir/VfullAdder__Syms.cpp"
+T       809   532773  1709129008   959945184  1709129008   959945184 "obj_dir/VfullAdder__Syms.h"
+T       269   532779  1709129008   963945420  1709129008   963945420 "obj_dir/VfullAdder__ver.d"
+T         0        0  1709129008   963945420  1709129008   963945420 "obj_dir/VfullAdder__verFiles.dat"
+T      1562   532777  1709129008   963945420  1709129008   963945420 "obj_dir/VfullAdder_classes.mk"
