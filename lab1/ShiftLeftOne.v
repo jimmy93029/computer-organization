@@ -4,7 +4,7 @@ module ShiftLeftOne (
 );
 
     // TODO: implement your shift left 1 here
-
+    assign o = i << 1;
 
 endmodule
 
