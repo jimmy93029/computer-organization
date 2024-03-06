@@ -13,13 +13,13 @@ module ImmGen (
             
             // B type ex. beq
             7'b1100011:
-                imm <= {{21(inst[31])}, inst[7], inst[30:25], inst[11:8]};
+                imm <= {{21{inst[31]}}, inst[7], inst[30:25], inst[11:8]};
             // I type ex. lw, addi, addi, slti, ori
             7'b0000011:
-                imm <= {{21(inst[31])}, inst[30:20]};
+                imm <= {{21{inst[31]}}, inst[30:20]};
             // S type ex. sw
             7'b0100011:
-                imm <= {{21(inst[31])}, inst[30:25], inst[11:7]};
+                imm <= {{21{inst[31]}}, inst[30:25], inst[11:7]};
             default:
                 imm <= 32'bx;
 

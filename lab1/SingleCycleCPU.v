@@ -12,7 +12,7 @@ module SingleCycleCPU (
 // you can modify it as you wish except I/O pin and register module
 
 // wires
-wire [31:0] pc_o, pc_mux_out, pc_add, instruction, shift1_out, add2_out;  // PC related
+wire [31:0] pc_o, pc_mux_out, pc_add, instruction, shift1_out, add2_sum;  // PC related
 wire branch, memRead, memtoReg, ALUOp, memWrite, ALUSrc, regWrite; // main control
 wire[31:0] WriteData_mux_out, readData1, readData2;  // register
 wire[31:0] imm;   // immedidate generator unit
@@ -37,14 +37,13 @@ Adder m_Adder_1(
 Adder m_Adder_2(
     .a(pc_o),
     .b(shift1_out),
-    .sum(add2_out)
+    .sum(add2_sum)
 );
-
 
 x2to1 #(.size(32)) m_Mux_PC(
     .sel(branch),
     .s0(pc_add),
-    .s1(),
+    .s1(add2_sum),
     .out(pc_mux_out)
 );
 
@@ -52,7 +51,6 @@ ShiftLeftOne m_ShiftLeftOne(
     .i(imm),
     .o(shift1_out)
 );
-
 
 InstructionMemory m_InstMem(
     .readAddr(pc_o),
