@@ -1,3 +1,6 @@
 # ignore obj_dir
 lab0/obj_dir
+lab1/obj_dir
 
+# ignore assembly code
+lab1/assembly 
