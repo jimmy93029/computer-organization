@@ -12,7 +12,7 @@ module ALU (
     
     assign zero = (ALUOut == 0);          // ?
     always @(*) begin
-        case (ALUCtl)
+        case (ALUctl)
             4'b0010:
                 ALUOut <= A + B;
             4'b0110:

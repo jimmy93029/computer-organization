@@ -21,7 +21,7 @@ module ALUCtrl (
             // case R type
             2'b1x:
                 case(funct7)
-                    7'd0:
+                    1'b0:
                         case(funct3)
                             3'b000: 
                                 ALUCtl <= 4'b0010; 
@@ -30,7 +30,7 @@ module ALUCtrl (
                             3'b110:
                                 ALUCtl <= 4'b0001;
                         endcase
-                    7'd32:
+                    1'b1:
                         ALUCtl <= 4'b0110;
                 endcase
 

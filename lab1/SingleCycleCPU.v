@@ -11,13 +11,36 @@ module SingleCycleCPU (
 // The following provides simple template,
 // you can modify it as you wish except I/O pin and register module
 
-// wires
-wire [31:0] pc_o, pc_mux_out, pc_add, instruction, shift1_out, add2_sum;  // PC related
-wire branch, memRead, memtoReg, ALUOp, memWrite, ALUSrc, regWrite; // main control
-wire[31:0] WriteData_mux_out, readData1, readData2;  // register
-wire[31:0] imm;   // immedidate generator unit
-wire[31:0] alu_mux_out, ALUctl, ALUOut, zero;  // ALU related
-wire[31:0] ReadData3;  // Data memory related
+// PC related wires
+wire [31:0] pc_o;  
+wire [31:0] pc_mux_out;
+wire [31:0] pc_add;
+wire [31:0] instruction;
+wire [31:0] shift1_out;
+wire [31:0] add2_sum;
+
+// main control wires
+wire branch; 
+wire memRead;
+wire memtoReg;
+wire memWrite;
+wire ALUSrc;
+wire regWrite;
+wire[1:0] ALUOp;
+
+// register wires
+wire[31:0] WriteData_mux_out;
+wire[31:0] readData1;
+wire[31:0] readData2;
+
+// immedidate generator unit wires
+wire[31:0] imm;   
+
+// ALU related wires
+wire[31:0] alu_mux_out; 
+wire[31:0] ALUOut;
+wire[3:0] aluctl;
+wire zero;
 
 
 // PC related area ----------------------------------------------------
@@ -40,7 +63,7 @@ Adder m_Adder_2(
     .sum(add2_sum)
 );
 
-x2to1 #(.size(32)) m_Mux_PC(
+Mux2to1 #(.size(32)) m_Mux_PC(
     .sel(branch),
     .s0(pc_add),
     .s1(add2_sum),
@@ -97,7 +120,7 @@ ImmGen m_ImmGen(
 
 // ALU related -----------------------------------------------
 Mux2to1 #(.size(32)) m_Mux_ALU(
-    .sel(ALUOp),
+    .sel(ALUSrc),
     .s0(readData2),
     .s1(imm),
     .out(alu_mux_out)
@@ -107,11 +130,11 @@ ALUCtrl m_ALUCtrl(
     .ALUOp(ALUOp),
     .funct7(instruction[30]),
     .funct3(instruction[14:12]),
-    .ALUCtl(ALUctl)
+    .ALUCtl(aluctl)
 );
 
 ALU m_ALU(
-    .ALUctl(ALuctrl),
+    .ALUctl(aluctl),
     .A(readData1),
     .B(alu_mux_out),
     .ALUOut(ALUOut),
@@ -131,7 +154,7 @@ DataMemory m_DataMemory(
 );
 
 Mux2to1 #(.size(32)) m_Mux_WriteData(
-    .sel(writeReg),
+    .sel(regWrite),
     .s0(ReadData3),
     .s1(ALUOut),
     .out(WriteData_mux_out)
