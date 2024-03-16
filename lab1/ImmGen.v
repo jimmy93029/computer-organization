@@ -15,7 +15,7 @@ module ImmGen (
             7'b1100011:
                 imm = {{21{inst[31]}}, inst[7], inst[30:25], inst[11:8]};
             // I type ex. lw, addi, addi, slti, ori
-            7'b0000011:
+            7'b0010011:
                 imm = {{21{inst[31]}}, inst[30:20]};
             // I type only lw
             7'b0000011:
