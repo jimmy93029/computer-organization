@@ -14,27 +14,27 @@ module ALUCtrl (
         case(ALUOp)
             // case ld or sd
             2'b00:
-                ALUCtl <= 4'b0010;  // add
+                ALUCtl = 4'b0010;  // add
             // case beq 
             2'bx1:
-                ALUCtl <= 4'b0110;  // sub
+                ALUCtl = 4'b0110;  // sub
             // case R type
             2'b1x:
                 case(funct7)
                     1'b0:
                         case(funct3)
                             3'b000: 
-                                ALUCtl <= 4'b0010; 
+                                ALUCtl = 4'b0010; 
                             3'b111:
-                                ALUCtl <= 4'b0000;
+                                ALUCtl = 4'b0000;
                             3'b110:
-                                ALUCtl <= 4'b0001;
+                                ALUCtl = 4'b0001;
                         endcase
                     1'b1:
-                        ALUCtl <= 4'b0110;
+                        ALUCtl = 4'b0110;
                 endcase
 
-            default: ALUCtl <= 4'b0000; 
+            default: ALUCtl = 4'b0000; 
         endcase
     end
 
