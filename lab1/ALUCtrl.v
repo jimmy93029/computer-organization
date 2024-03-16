@@ -16,10 +16,10 @@ module ALUCtrl (
             2'b00:
                 ALUCtl = 4'b0010;  // add
             // case beq 
-            2'bx1:
+            2'b01:
                 ALUCtl = 4'b0110;  // sub
             // case R type
-            2'b1x:
+            2'b10:
                 case(funct7)
                     1'b0:
                         case(funct3)
@@ -29,6 +29,8 @@ module ALUCtrl (
                                 ALUCtl = 4'b0000;
                             3'b110:
                                 ALUCtl = 4'b0001;
+                            default:
+                                ALUCtl = 4'bxxxx;
                         endcase
                     1'b1:
                         ALUCtl = 4'b0110;

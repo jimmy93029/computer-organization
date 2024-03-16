@@ -32,6 +32,7 @@ wire[1:0] ALUOp;
 wire[31:0] WriteData_mux_out;
 wire[31:0] readData1;
 wire[31:0] readData2;
+wire[31:0] ReadData3;
 
 // immedidate generator unit wires
 wire[31:0] imm;   
@@ -40,7 +41,7 @@ wire[31:0] imm;
 wire[31:0] alu_mux_out; 
 wire[31:0] ALUOut;
 wire[3:0] aluctl;
-wire zero;
+wire zero_;
 
 
 // PC related area ----------------------------------------------------
@@ -64,7 +65,7 @@ Adder m_Adder_2(
 );
 
 Mux2to1 #(.size(32)) m_Mux_PC(
-    .sel(branch),
+    .sel(branch & zero_),
     .s0(pc_add),
     .s1(add2_sum),
     .out(pc_mux_out)
@@ -138,11 +139,11 @@ ALU m_ALU(
     .A(readData1),
     .B(alu_mux_out),
     .ALUOut(ALUOut),
-    .zero(zero)
+    .zero(zero_)
 );
 
 
-// DataMemory related ----------------------------------------
+// Data Memory related ----------------------------------------
 DataMemory m_DataMemory(
     .rst(start),
     .clk(clk),
@@ -154,7 +155,7 @@ DataMemory m_DataMemory(
 );
 
 Mux2to1 #(.size(32)) m_Mux_WriteData(
-    .sel(regWrite),
+    .sel(memtoReg),
     .s0(ReadData3),
     .s1(ALUOut),
     .out(WriteData_mux_out)

@@ -10,21 +10,21 @@ module ALU (
     // TODO: implement your ALU here
     // Hint: you can use operator to implement
     
-    assign zero = (ALUOut == 0);          // ?
+    assign zero = (ALUOut == 0);     
     always @(*) begin
         case (ALUctl)
             4'b0010:
-                ALUOut <= A + B;
+                ALUOut = A + B;
             4'b0110:
-                ALUOut <= A - B; 
+                ALUOut = A - B; 
             4'b0000:
-                ALUOut <= A & B; 
+                ALUOut = A & B; 
             4'b0001:
-                ALUOut <= A | B;
+                ALUOut = A | B;
             4'b0111:
-                ALUOut <= A < B ? 1 : 0;
+                ALUOut = A < B ? 1 : 0;
             default:
-                ALUOut <= 0;
+                ALUOut = 0;
             
         endcase
     end

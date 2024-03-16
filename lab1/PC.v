@@ -6,13 +6,12 @@ module PC (
 );
 
     // TODO: implement your program counter here
-    always@(posedge clk) begin
-        if (rst == 0)
-            pc_o <= pc_o;
+    always @(posedge clk) begin
+        if (rst)
+            pc_o <= 32'd0; // Synchronous reset: Reset PC to 0 on the rising edge of clk when rst is asserted
         else
-            pc_o <= pc_i;
+            pc_o <= pc_i; // Update PC synchronously: On the rising edge of clk, update PC to pc_i
     end
-
 
 endmodule
 
