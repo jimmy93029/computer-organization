@@ -10,7 +10,7 @@ module ALU (
     // TODO: implement your ALU here
     // Hint: you can use operator to implement
     
-    assign zero = (ALUOut == 0);     
+       
     always @(*) begin
         case (ALUctl)
             4'b0010:
@@ -28,6 +28,8 @@ module ALU (
             
         endcase
     end
+
+    assign zero = (ALUOut == 0);  
     
 endmodule
 

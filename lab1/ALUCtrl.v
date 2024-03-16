@@ -24,19 +24,36 @@ module ALUCtrl (
                     1'b0:
                         case(funct3)
                             3'b000: 
-                                ALUCtl = 4'b0010; 
-                            3'b111:
-                                ALUCtl = 4'b0000;
+                                ALUCtl = 4'b0010;  // add
                             3'b110:
-                                ALUCtl = 4'b0001;
+                                ALUCtl = 4'b0111;  // slt
+                            3'b110:
+                                ALUCtl = 4'b0001;  // or
+                            3'b111:
+                                ALUCtl = 4'b0000;  // and
                             default:
                                 ALUCtl = 4'bxxxx;
                         endcase
                     1'b1:
-                        ALUCtl = 4'b0110;
+                        case(funct3)
+                            3'b000:
+                                ALUCtl = 4'b0110;  // sub
+                    endcase
+                endcase
+            else:
+                case(funct3)
+                    3'b000:
+                        ALUCtl = 4'b0000;  // andi
+                    3'b010:
+                        ALUCtl = 4'b0111;  // slti
+                    3'b110:
+                        ALUCtl = 4'b0001;  // ori
+                    3'b111:
+                        ALUCtl = 4'b0000;  // andi
                 endcase
 
-            default: ALUCtl = 4'b0000; 
+            default: ALUCtl = 4'bxxxx; 
+
         endcase
     end
 
