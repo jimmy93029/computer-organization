@@ -23,13 +23,14 @@ module ALU (
                 ALUOut = A | B;
             4'b0111:
                 ALUOut = A < B ? 1 : 0;
-            default:
+            default: begin
                 ALUOut = 0;
-            
+                assign zero = (ALUOut == 0); 
+            end
         endcase
     end
 
-    assign zero = (ALUOut == 0);  
+     
     
 endmodule
 
