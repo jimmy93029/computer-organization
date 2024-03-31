@@ -16,6 +16,7 @@ module Control (
 
     always @(*) begin
         case(opcode)   
+        
             7'b0110011: begin
                 control = 6'b001000;   // R type
                 ALUOp = 2'b10;

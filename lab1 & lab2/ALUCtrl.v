@@ -19,11 +19,13 @@ module ALUCtrl (
             2'b01:
                 case(funct3)
                     3'b000:
-                        ALUCtl = 4'b0110;  // beq : sub
+                        ALUCtl = 4'b1100;  // beq : A == B
                     3'b001:
-                        ALUCtl = 
+                        ALUCtl = 4'b1101;  // bnq : A != B
                     3'b100:
+                        ALUCtl = 4'b0111;  // blt : A < B
                     3'b101:
+                        ALUCtl = 4'b1011;  // bge : A >= B
             // case R type
             2'b10:
                 case(funct7)
