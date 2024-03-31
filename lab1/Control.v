@@ -17,19 +17,23 @@ module Control (
     always @(*) begin
         case(opcode)   
             7'b0110011: begin
-                control = 6'b001000;    // R type
+                control = 6'b001000;   // R type
                 ALUOp = 2'b10;
             end
             7'b0010011: begin
-                control = 6'b111100;    // I type
+                control = 6'b111100;   // I type (1) ex. lw
                 ALUOp = 2'b00;
             end
+            7'b0010011: begin           
+                control = 6'b101000;   // I type (2) ex. addi, slti, ori, andi
+                ALUOp = 2'b11;
+            end
             7'b0100011: begin
-                control = 6'b1x0010;    // S type
+                control = 6'b1x0010;   // S type ex. sw
                 ALUOp = 2'b00;
             end
             7'b1100011: begin
-                control = 6'b0x0001;    // B type
+                control = 6'b0x0001;   // B type ex. beq, bne, ble, bge
                 ALUOp = 2'b01;
             end
             default: begin

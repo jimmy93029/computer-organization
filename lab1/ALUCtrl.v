@@ -12,12 +12,18 @@ module ALUCtrl (
     always @*
     begin
         case(ALUOp)
-            // case ld or sd
+            // case I type (1), S type 
             2'b00:
-                ALUCtl = 4'b0010;  // add
-            // case beq 
+                ALUCtl = 4'b0010;  // ld, sd : add
+            // case B type
             2'b01:
-                ALUCtl = 4'b0110;  // sub
+                case(funct3)
+                    3'b000:
+                        ALUCtl = 4'b0110;  // beq : sub
+                    3'b001:
+                        ALUCtl = 
+                    3'b100:
+                    3'b101:
             // case R type
             2'b10:
                 case(funct7)
@@ -42,17 +48,17 @@ module ALUCtrl (
                                 ALUCtl = 4'bxxxx;
                         endcase
                 endcase
-            // Other cases
-            default:
+            // case I type (2)
+            2'b11:
                 case(funct3)
                     3'b000:
-                        ALUCtl = 4'b0010;  // addi
+                        ALUCtl = 4'b0010;  // addi : add
                     3'b010:
-                        ALUCtl = 4'b0111;  // slti
+                        ALUCtl = 4'b0111;  // slti: slt
                     3'b110:
-                        ALUCtl = 4'b0001;  // ori
+                        ALUCtl = 4'b0001;  // ori: or 
                     3'b111:
-                        ALUCtl = 4'b0000;  // andi
+                        ALUCtl = 4'b0000;  // andi: and
                     default:
                         ALUCtl = 4'bxxxx;
                 endcase
