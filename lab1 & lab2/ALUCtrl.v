@@ -14,7 +14,7 @@ module ALUCtrl (
         case(ALUOp)
             // case I type (1), S type 
             2'b00:
-                ALUCtl = 4'b0010;  // ld, sd : add
+                ALUCtl = 4'b0010;  // lw, sw : add
             // case B type
             2'b01:
                 case(funct3)
@@ -34,7 +34,7 @@ module ALUCtrl (
                             3'b000: 
                                 ALUCtl = 4'b0010;  // add
                             3'b110:
-                                ALUCtl = 4'b0111;  // slt
+                                ALUCtl = 4'b0111;  // slt : A < B
                             3'b010:
                                 ALUCtl = 4'b0001;  // or
                             3'b111:
