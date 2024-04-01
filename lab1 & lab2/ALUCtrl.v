@@ -2,7 +2,8 @@ module ALUCtrl (
     input [1:0] ALUOp,
     input funct7,
     input [2:0] funct3,
-    output reg [3:0] ALUCtl
+    output reg [3:0] ALUCtl,
+    output reg [3:0] CompCtl
 );
 
     // TODO: implement your ALU control here
