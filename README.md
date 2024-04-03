@@ -9,5 +9,5 @@ the code is not throughly checked
 [hw link](https://nycu-caslab.github.io/CO2024/labs/Lab%202.html)
 the implementation of RICS-V Single cycle CPU refers to the following structures 
 
-<img src="images/image-1.png" width="400" height="300">
-<img src="images/image-2.png" width="400" height="300">
+<img src="images/image-1.png" width="600" height="450">
+<img src="images/image-2.png" width="600" height="450">
