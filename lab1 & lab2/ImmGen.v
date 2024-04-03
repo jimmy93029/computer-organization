@@ -11,17 +11,23 @@ module ImmGen (
             // TODO: implement your ImmGen here
             // Hint: follow the RV32I opcode map (table in spec) to set imm value
                 
-            7'b1101111:
+            7'b1101111: begin
                 imm = {13{inst[31]}, inst[19:12], inst[20], inst[30:21]};  // J type ex. jal
-            
-            7'b1100011:
+                imm = imm << 1;
+            end
+            7'b1100111: begin
+                imm = {{21{inst[31]}}, inst[30:20]};  // I type (1) ex. jal
+                imm = imm << 1;
+            end
+            7'b1100011: begin
                 imm = {{21{inst[31]}}, inst[7], inst[30:25], inst[11:8]};  // B type ex. beq
-            
-            7'b0000011:
-                imm = {{21{inst[31]}}, inst[30:20]};  // I type (1) ex. lw
+                imm = imm << 1;
+            end            
+            7'b0000011: 
+                imm = {{21{inst[31]}}, inst[30:20]};  // I type (2) ex. lw
             
             7'b0010011:
-                imm = {{21{inst[31]}}, inst[30:20]};  // I type (2) ex. addi, slti, ori, andi
+                imm = {{21{inst[31]}}, inst[30:20]};  // I type (3) ex. addi, slti, ori, andi
             
             7'b0100011:
                 imm = {{21{inst[31]}}, inst[30:25], inst[11:7]};  // S type ex. sw

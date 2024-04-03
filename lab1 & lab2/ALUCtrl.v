@@ -13,12 +13,9 @@ module ALUCtrl (
 always @*
 begin
     case(ALUOp)
-        // case I type (1), S type 
+        // case J type, I type (1), I type (2), S type, B type
         2'b00:
-            ALUCtl = 4'b0010;  // lw, sw : add
-        // case B type
-        2'b01:
-            ALUCtl = 4'b0010;  // beq, bnq, blt, bge : A + B
+            ALUCtl = 4'b0010;  // jal, jalr, lw, sw, beq, bnq, blt, bge : add
         // case R type
         2'b10:
             case(funct7)
@@ -43,7 +40,7 @@ begin
                             ALUCtl = 4'bxxxx;
                     endcase
             endcase
-        // case I type (2)
+        // case I type (3)
         2'b11:
             case(funct3)
                 3'b000:
@@ -60,23 +57,22 @@ begin
     endcase
 end
 
+
 // signal to branch compare 
-always @*
-begin
-    case(ALUOp)
-        // case B type
-        2'b01:
-            case(funct3)
-                3'b000:
-                    BranchCtl = 4'b1100;  // beq : A == B
-                3'b001:
-                    BranchCtl = 4'b1101;  // bnq : A != B
-                3'b100:
-                    BranchCtl = 4'b0111;  // blt : A < B
-                3'b101:
-                    BranchCtl = 4'b1011;  // bge : A >= B
-        default:
-            BranchCtl = 4'bxxxx;
+always @* begin
+
+    // case B type
+    case(funct3)
+        3'b000:
+            BranchCtl = 4'b1100;  // beq : A == B
+        3'b001:
+            BranchCtl = 4'b1101;  // bnq : A != B
+        3'b100:
+            BranchCtl = 4'b0111;  // blt : A < B
+        3'b101:
+            BranchCtl = 4'b1011;  // bge : A >= B
+    default:
+        BranchCtl = 4'bxxxx;
 
     endcase
 end

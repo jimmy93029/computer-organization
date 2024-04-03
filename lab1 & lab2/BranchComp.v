@@ -6,7 +6,7 @@ module BranchComp (
 
 
 always @(*) begin
-    case (ALUctl)
+    case (BranchCtl)
         4'b0111: 
             BranchOut = A < B; 
         4'b1011:
@@ -16,6 +16,6 @@ always @(*) begin
         4'b1101: 
             BranchOut = A != B; 
         default: 
-            BranchOut = 0;       
+            BranchOut = 32'd0;       
     endcase
 end
