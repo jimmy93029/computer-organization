@@ -17,27 +17,25 @@ wire signed [31:0] pc_mux_out;
 wire signed [31:0] pc_add4;
 wire [31:0] instruction;
 wire [3:0] BranchCtl,
-wire signed [31:0] BranchOut,
+wire BranchOut,
 
 // main control wires
-wire immUse,  // sel to alu_mux2. determine whether to use immediate on inputB of ALU
+wire immUse,   // sel to alu_mux2. determine whether to use immediate on inputB of ALU
 wire memtoReg,
 wire regWrite,
 wire memRead,
 wire memWrite,
 wire branch,
-wire jump,   // when jump. we have to link pc + 4 into reg, and put alu ouput into pc  
-wire pcUse,  // sel to alu_mux1. determine whether to use pc on inputA of ALU
+wire jump,     // when jump. we have to link pc + 4 into reg, and put alu ouput into pc  
+wire pcUse,    // sel to alu_mux1. determine whether to use pc on inputA of ALU
 wire[1:0] ALUOp;
 
-// register wires
+// register wires and Data Memory 
 wire signed [31:0] WriteData_mux1_out;
 wire signed [31:0] WriteData_mux2_out;
 wire[31:0] readData1;
 wire[31:0] readData2;
-
-// Data Memory 
-wire[31:0] ReadData3;
+wire[31:0] readData3;
 
 // ALU related wires
 wire signed [31:0] imm;   
@@ -72,7 +70,7 @@ BranchComp m_BranchComp (
     .BranchCtl(BranchCtl),
     .A(readData1),
     .B(readData2),
-    .BranchOut(BranchOut),
+    .BranchOut(BranchOut)
 );
 
 InstructionMemory m_InstMem(
@@ -86,7 +84,7 @@ Control m_Control(
     .opcode(instruction[6:0]),
     .immUse(immUse),
     .memtoReg(memtoReg),
-    .regWrite(regWrite)
+    .regWrite(regWrite),
     .memRead(memRead),
     .memWrite(memWrite),
     .branch(branch),
@@ -123,7 +121,7 @@ ALU m_ALU(
     .ALUCtl(ALUCtl),
     .A(alu_mux1_out),
     .B(alu_mux2_out),
-    .ALUOut(ALUOut),
+    .ALUOut(ALUOut)
 );
 
 Mux2to1 #(.size(32)) m_Mux1_ALU(
@@ -144,7 +142,7 @@ ALU_Branch_Ctrl m_ALU_Branch_Ctrl(
     .ALUOp(ALUOp),
     .funct7(instruction[30]),
     .funct3(instruction[14:12]),
-    .ALUCtl(ALUCtl)
+    .ALUCtl(ALUCtl),
     .BranchCtl(BranchCtl)
 );
 
@@ -157,13 +155,13 @@ DataMemory m_DataMemory(
     .memRead(memRead),
     .address(ALUOut),
     .writeData(readData2),
-    .readData(ReadData3)
+    .readData(readData3)
 );
 
 Mux2to1 #(.size(32)) m_Mux1_WriteData(
     .sel(memtoReg),
     .s0(ALUOut),
-    .s1(ReadData3),
+    .s1(readData3),
     .out(WriteData_mux1_out)
 );
 
@@ -172,7 +170,7 @@ Mux2to1 #(.size(32)) m_Mux2_WriteData(
     .s0(WriteData_mux1_out),
     .s1(pc_add4),
     .out(WriteData_mux2_out)
-)
+);
 
 
 
