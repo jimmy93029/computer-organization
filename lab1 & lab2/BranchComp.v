@@ -14,7 +14,7 @@ always @(*) begin
         4'b1100: 
             BranchOut = A == B;  
         4'b1101: 
-            BranchOut = A != B; 
+            BranchOut = !(A == B); 
         default: 
             BranchOut = 32'd0;       
     endcase

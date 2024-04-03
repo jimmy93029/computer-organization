@@ -20,14 +20,14 @@ wire [3:0] BranchCtl,
 wire signed [31:0] BranchOut,
 
 // main control wires
-wire immUse,
+wire immUse,  // sel to alu_mux2. determine whether to use immediate on inputB of ALU
 wire memtoReg,
 wire regWrite,
 wire memRead,
 wire memWrite,
 wire branch,
-wire jump,
-wire pcUse,
+wire jump,   // when jump. we have to link pc + 4 into reg, and put alu ouput into pc  
+wire pcUse,  // sel to alu_mux1. determine whether to use pc on inputA of ALU
 wire[1:0] ALUOp;
 
 // register wires
@@ -41,12 +41,13 @@ wire[31:0] ReadData3;
 
 // ALU related wires
 wire signed [31:0] imm;   
-wire signed [31:0] alu_mux_out; 
+wire signed [31:0] alu_mux1_out; 
+wire signed [31:0] alu_mux2_out
 wire signed [31:0] ALUOut;
 wire[3:0] ALUCtl;
 
 
-// PC related area ----------------------------------------------------
+// PC related area -----------------------------------------------------
 PC m_PC(
     .clk(clk),
     .rst(start),
@@ -80,7 +81,7 @@ InstructionMemory m_InstMem(
 );
 
 
-// Main control ----------------------------------------------------
+// Main control ---------------------------------------------------------
 Control m_Control(
     .opcode(instruction[6:0]),
     .immUse(immUse),
@@ -95,7 +96,7 @@ Control m_Control(
 );
 
 
-// Register ----------------------------------------------------
+// Register ------------------------------------------------------------
 // For Student: 
 // Do not change the Register instance name!
 // Or you will fail validation.
@@ -114,29 +115,37 @@ Register m_Register(
 
 // ALU related -----------------------------------------------
 ImmGen m_ImmGen(
-    .inst(instruction[31:0]),
-    .imm(imm)
-);
-
-Mux2to1 #(.size(32)) m_Mux_ALU(
-    .sel(immUse),
-    .s0(readData2),
-    .s1(imm),
-    .out(alu_mux_out)
-);
-
-ALUCtrl m_ALUCtrl(
-    .ALUOp(ALUOp),
-    .funct7(instruction[30]),
-    .funct3(instruction[14:12]),
-    .ALUCtl(ALUCtl)
+    .inst(instruction[31:0]),   // Note that : I imcorperate shift left one into ImmGen
+    .imm(imm)                   // that is, for branch, jump instruction, ImmGen will output shift left 1 offset automatically
 );
 
 ALU m_ALU(
     .ALUCtl(ALUCtl),
-    .A(readData1),
-    .B(alu_mux_out),
+    .A(alu_mux1_out),
+    .B(alu_mux2_out),
     .ALUOut(ALUOut),
+);
+
+Mux2to1 #(.size(32)) m_Mux1_ALU(
+    .sel(pcUse),
+    .s0(readData1),
+    .s1(pc_o),
+    .out(alu_mux1_out)
+);
+
+Mux2to1 #(.size(32)) m_Mux2_ALU(
+    .sel(immUse),
+    .s0(readData2),
+    .s1(imm),
+    .out(alu_mux2_out)
+);
+
+ALU_Branch_Ctrl m_ALU_Branch_Ctrl(
+    .ALUOp(ALUOp),
+    .funct7(instruction[30]),
+    .funct3(instruction[14:12]),
+    .ALUCtl(ALUCtl)
+    .BranchCtl(BranchCtl)
 );
 
 
@@ -153,8 +162,8 @@ DataMemory m_DataMemory(
 
 Mux2to1 #(.size(32)) m_Mux1_WriteData(
     .sel(memtoReg),
-    .s0(ReadData3),
-    .s1(ALUOut),
+    .s0(ALUOut),
+    .s1(ReadData3),
     .out(WriteData_mux1_out)
 );
 

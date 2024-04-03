@@ -1,4 +1,4 @@
-module ALUCtrl (
+module ALU_Branch_Ctrl (
     input [1:0] ALUOp,
     input funct7,
     input [2:0] funct3,
