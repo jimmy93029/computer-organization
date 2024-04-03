@@ -11,33 +11,23 @@ module ALU (
     // Hint: you can use operator to implement
     
        
-    always @(*) begin
-        case (ALUctl)
-            4'b0010:
-                ALUOut = A + B;
-            4'b0110: 
-                ALUOut = A - B;
-            4'b0000:
-                ALUOut = A & B; 
-            4'b0001:
-                ALUOut = A | B;
-            4'b0111:
-                ALUOut = A < B; 
-            4'b1010: 
-                ALUOut = A <= B; 
-            4'b1011:
-                ALUOut = A >= B;
-            4'b1100: 
-                ALUOut = A == B;  
-            4'b1101: 
-                ALUOut = A != B;  
-            default: 
-                ALUOut = 0;       
-        endcase
-        zero = (ALUOut == 1); 
-    end
-
-     
+always @(*) begin
+    case (ALUctl)
+        4'b0010:
+            ALUOut = A + B;
+        4'b0110: 
+            ALUOut = A - B;
+        4'b0000:
+            ALUOut = A & B; 
+        4'b0001:
+            ALUOut = A | B;
+        4'b0111:
+            ALUOut = A < B;  
+        default: 
+            ALUOut = 0;       
+    endcase
+end
+    
     
 endmodule
 
