@@ -16,11 +16,10 @@ module ImmGen (
                 imm = imm << 1;
             end
             7'b1100111: begin
-                imm = {{21{inst[31]}}, inst[30:20]};  // I type (1) ex. jal
-                imm = imm << 1;
+                imm = {{21{inst[31]}}, inst[30:20]};  // I type (1) ex. jalr 
             end
             7'b1100011: begin
-                imm = {{21{inst[31]}}, inst[7], inst[30:25], inst[11:8]};  // B type ex. beq
+                imm = {{21{inst[31]}}, inst[7], inst[30:25], inst[11:8]};  // B type ex. beq, bne, blt, bge  
                 imm = imm << 1;
             end            
             7'b0000011: 
