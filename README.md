@@ -12,3 +12,13 @@ the implementation of RICS-V Single cycle CPU refers to the following structures
 
 <img src="images/image-1.png" width="700" height="450">
 <img src="images/image-2.png" width="600" height="450">
+
+
+Note1 : using gtkwave command 
+```
+uset GTK_PATH   # you may need it when using vscode
+gtkwave waveform.vcd 
+```
+
+Note2 : using TEST_INSTRUCTIONS.txt
+we need to ensure the last line of txt is blank
