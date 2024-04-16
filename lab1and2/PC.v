@@ -8,7 +8,7 @@ module PC (
     // TODO: implement your program counter here
     /* verilator lint_off SYNCASYNCNET */
     always @(posedge clk) begin
-        if (rst)
+        if (~rst)
             pc_o <= 32'd0; // Synchronous reset: Reset PC to 0 on the rising edge of clk when rst is asserted
         else
             pc_o <= pc_i; // Update PC synchronously: On the rising edge of clk, update PC to pc_i

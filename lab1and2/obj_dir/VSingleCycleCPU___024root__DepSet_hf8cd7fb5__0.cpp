@@ -244,7 +244,8 @@ VL_INLINE_OPT void VSingleCycleCPU___024root___nba_sequent__TOP__3(VSingleCycleC
     __Vtableidx3 = 0;
     // Body
     vlSelf->SingleCycleCPU__DOT__pc_o = ((IData)(vlSelf->start)
-                                          ? 0U : vlSelf->SingleCycleCPU__DOT__pc_mux_out);
+                                          ? vlSelf->SingleCycleCPU__DOT__pc_mux_out
+                                          : 0U);
     vlSelf->__VdfgTmp_h98940ace__0 = vlSelf->SingleCycleCPU__DOT__m_InstMem__DOT__insts
         [(0x7fU & vlSelf->SingleCycleCPU__DOT__pc_o)];
     __VdfgTmp_h0374c2a2__0 = vlSelf->SingleCycleCPU__DOT__m_InstMem__DOT__insts
