@@ -54,7 +54,7 @@ PC m_PC(
 );
 
 Mux2to1 #(.size(32)) m_Mux_PC(
-    .sel((branch & BranchOut) | jump),
+    .sel((branch && BranchOut) || jump),
     .s0(pc_add4),
     .s1(ALUOut),
     .out(pc_mux_out)

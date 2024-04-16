@@ -30,7 +30,7 @@ module Control (
                 ALUOp = 2'b00;
             end
             7'b1100011: begin
-                control = 8'b0x000101;  // B type ex. beq, bne, bne, bge
+                control = 8'b10000101;  // B type ex. beq, bne, bne, bge
                 ALUOp = 2'b00;
             end
             7'b0000011: begin
