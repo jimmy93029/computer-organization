@@ -38,15 +38,15 @@ module Control (
                 ALUOp = 2'b00;
             end
             7'b0100011: begin
-                control = 8'b1x001000;  // S type ex. sw
+                control = 8'b10001000;  // S type ex. sw
                 ALUOp = 2'b00;
             end
             7'b0010011: begin           
-                control = 8'b10100000;  // I type (3) ex. addi, slti, ori, andi
+                control = 8'b10100000;  // I type (3) ex. addi, andi, ori, slti 
                 ALUOp = 2'b11;
             end
             7'b0110011: begin
-                control = 8'b00100000;  // R type
+                control = 8'b00100000;  // R type ex. add, sub, and, or, slt
                 ALUOp = 2'b10;
             end
             default: begin
