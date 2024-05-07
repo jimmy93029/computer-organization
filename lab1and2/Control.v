@@ -14,44 +14,99 @@ module Control (
     // TODO: implement your Control here
     // Hint: follow the Architecture (figure in spec) to set output signal
 
-    reg[7:0] control; 
-    assign {immUse, memtoReg, regWrite, memRead, memWrite, branch, jump, pcUse} = control;
+    // assign {immUse, memtoReg, regWrite, memRead, memWrite, branch, jump, pcUse} = control;
     // Note : immUse = ALUSrc (Bsel), pcUse = Asel in textbook
 
     always @(*) begin
         case(opcode)   
 
-            7'b1101111: begin
-                control = 8'b10100111;  // J type ex. jal
+            7'b1101111: begin  // J type ex. jal
+                immUse   = 1;
+                memtoReg = 0;
+                regWrite = 1;
+                memRead  = 0;
+                memWrite = 0;
+                branch   = 1;
+                jump     = 1;
+                pcUse    = 1;
                 ALUOp = 2'b00;
             end
-            7'b1100111: begin
-                control = 8'b10100010;  // I type (1) ex. jalr
+            7'b1100111: begin  // I type (1) ex. jalr
+                immUse   = 1;
+                memtoReg = 0;
+                regWrite = 1;
+                memRead  = 0;
+                memWrite = 0;
+                branch   = 0;
+                jump     = 1;
+                pcUse    = 0;
                 ALUOp = 2'b00;
             end
-            7'b1100011: begin
-                control = 8'b10000101;  // B type ex. beq, bne, bne, bge
+            7'b1100011: begin  // B type ex. beq, bne, bne, bge
+                immUse   = 1;
+                memtoReg = 0;
+                regWrite = 0;
+                memRead  = 0;
+                memWrite = 0;
+                branch   = 1;
+                jump     = 0;
+                pcUse    = 1;
                 ALUOp = 2'b00;
             end
-            7'b0000011: begin
-                control = 8'b11110000;  // I type (2) ex. lw
+            7'b0000011: begin  // I type (2) ex. lw
+                immUse   = 1;
+                memtoReg = 1;
+                regWrite = 1;
+                memRead  = 1;
+                memWrite = 0;
+                branch   = 0;
+                jump     = 0;
+                pcUse    = 0;
                 ALUOp = 2'b00;
             end
-            7'b0100011: begin
-                control = 8'b10001000;  // S type ex. sw
+            7'b0100011: begin  // S type ex. sw
+                immUse   = 1;
+                memtoReg = 0;
+                regWrite = 0;
+                memRead  = 0;
+                memWrite = 1;
+                branch   = 0;
+                jump     = 0;
+                pcUse    = 0;
                 ALUOp = 2'b00;
             end
-            7'b0010011: begin           
-                control = 8'b10100000;  // I type (3) ex. addi, andi, ori, slti 
+            7'b0010011: begin  // I type (3) ex. addi, andi, ori, slti    
+                immUse   = 1;
+                memtoReg = 0;
+                regWrite = 1;
+                memRead  = 0;
+                memWrite = 0;
+                branch   = 0;
+                jump     = 0;
+                pcUse    = 0;        
                 ALUOp = 2'b11;
             end
-            7'b0110011: begin
-                control = 8'b00100000;  // R type ex. add, sub, and, or, slt
+            7'b0110011: begin  // R type ex. add, sub, and, or, slt
+                immUse   = 0;
+                memtoReg = 0;
+                regWrite = 1;
+                memRead  = 0;
+                memWrite = 0;
+                branch   = 0;
+                jump     = 0;
+                pcUse    = 0; 
                 ALUOp = 2'b10;
             end
             default: begin
-                control = 8'bxxxxxxxx;
-                ALUOp = 2'bxx;
+                immUse   = 0;
+                memtoReg = 0;
+                regWrite = 0;
+                memRead  = 0;
+                memWrite = 0;
+                branch   = 0;
+                jump     = 0;
+                pcUse    = 0;
+                ALUOp = 2'b00;
             end
         endcase
     end
