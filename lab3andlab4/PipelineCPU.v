@@ -16,26 +16,26 @@ wire [31:0] pc_o;
 wire signed [31:0] pc_mux_out;
 wire signed [31:0] pc_add4;
 wire [31:0] instruction;
-wire [3:0] BranchCtl;
-wire BranchOut;
+wire [3:0] ID_BranchCtl;
+wire ID_BranchOut;
 
 // main control wires
-wire immUse;   // sel to alu_mux2. determine whether to use immediate on inputB of ALU
-wire memtoReg;
-wire regWrite;
-wire memRead;
-wire memWrite;
-wire branch;
-wire jump;     // when jump. we have to link pc + 4 into reg, and put alu ouput into pc  
-wire pcUse;    // sel to alu_mux1. determine whether to use pc on inputA of ALU
-wire[1:0] ALUOp;
+wire ID_immUse;   // sel to alu_mux2. determine whether to use immediate on inputB of ALU
+wire ID_memtoReg, Ex_memtoReg, Mem_memtoReg, Wb_memtoReg;
+wire ID_regWrite, Ex_regWrite, Mem_regWrite, Wb_regWrite;
+wire ID_memRead, Ex_memRead, Mem_memRead;
+wire ID_memWrite, Ex_memWrite, Mem_memWrite;
+wire ID_branch;
+wire ID_jump;     // when jump. we have to link pc + 4 into reg, and put alu ouput into pc  
+wire ID_pcUse, Ex_pcUse;    // sel to alu_mux1. determine whether to use pc on inputA of ALU
+wire[1:0] ID_ALUOp, Ex_ALUOp;
 
 // register wires and Data Memory 
 wire signed [31:0] WriteData_mux1_out;
 wire signed [31:0] WriteData_mux2_out;
-wire[31:0] readData1;
-wire[31:0] readData2;
-wire[31:0] readData3;
+wire[31:0] ID_readData1, Ex_readData1;
+wire[31:0] ID_readData2, Ex__readData2;
+wire[31:0] Mem_readData3;
 
 // ALU related wires
 wire signed [31:0] imm;   
@@ -45,7 +45,8 @@ wire signed [31:0] ALUOut;
 wire[3:0] ALUCtl;
 
 
-// PC related area -----------------------------------------------------
+/* Stage 1 : IF (insruction fetch) ------------------------------------------------------ */
+
 PC m_PC(
     .clk(clk),
     .rst(start),
@@ -66,20 +67,14 @@ Adder m_Adder_1(
     .sum(pc_add4)
 );
 
-BranchComp m_BranchComp (
-    .BranchCtl(BranchCtl),
-    .A(readData1),
-    .B(readData2),
-    .BranchOut(BranchOut)
-);
-
 InstructionMemory m_InstMem(
     .readAddr(pc_o),
     .inst(instruction)
 );
 
 
-// Main control ---------------------------------------------------------
+/* Stage 2 : ID (instruction decode & register read) ------------------------------------------------------ */
+
 Control m_Control(
     .opcode(instruction[6:0]),
     .immUse(immUse),
@@ -94,10 +89,6 @@ Control m_Control(
 );
 
 
-// Register ------------------------------------------------------------
-// For Student: 
-// Do not change the Register instance name!
-// Or you will fail validation.
 Register m_Register(
     .clk(clk),
     .rst(start),
@@ -111,11 +102,30 @@ Register m_Register(
 );
 
 
-// ALU related -----------------------------------------------
-ImmGen m_ImmGen(
-    .inst(instruction[31:0]),   // Note that : I imcorperate shift left one into ImmGen
-    .imm(imm)                   // that is, for branch, jump instruction, ImmGen will output shift left 1 offset automatically
+ALU_Branch_Ctrl m_ALU_Branch_Ctrl(
+    .ALUOp(ALUOp),
+    .funct7(instruction[30]),
+    .funct3(instruction[14:12]),
+    .ALUCtl(ALUCtl),
+    .BranchCtl(BranchCtl)
 );
+
+
+ImmGen m_ImmGen(
+    .inst(instruction[31:0]),   
+    .imm(imm)                  
+);
+
+
+BranchComp m_BranchComp (
+    .BranchCtl(BranchCtl),
+    .A(readData1),
+    .B(readData2),
+    .BranchOut(BranchOut)
+);
+
+
+/* Stage 3 : EX (execution)--------------------------------------------------------- */
 
 ALU m_ALU(
     .ALUCtl(ALUCtl),
@@ -139,16 +149,8 @@ Mux2to1 #(.size(32)) m_Mux2_ALU(
     .out(alu_mux2_out)
 );
 
-ALU_Branch_Ctrl m_ALU_Branch_Ctrl(
-    .ALUOp(ALUOp),
-    .funct7(instruction[30]),
-    .funct3(instruction[14:12]),
-    .ALUCtl(ALUCtl),
-    .BranchCtl(BranchCtl)
-);
+// stage 4 : Mem (memory read) ----------------------------------------------------
 
-
-// Data Memory related ----------------------------------------
 DataMemory m_DataMemory(
     .rst(start),
     .clk(clk),
@@ -158,6 +160,8 @@ DataMemory m_DataMemory(
     .writeData(readData2),
     .readData(readData3)
 );
+
+// stage 5 : WB (write back) -------------------------------------------------------
 
 Mux2to1 #(.size(32)) m_Mux1_WriteData(
     .sel(memtoReg),
@@ -174,10 +178,10 @@ Mux2to1 #(.size(32)) m_Mux2_WriteData(
 );
 
 
-
 // ======= for validation ======= 
 // == Dont change this section ==
 assign r = m_Register.regs;
 // ======= for vaildation =======
+
 
 endmodule
