@@ -1,8 +1,9 @@
-module SingleCycleCPU (
+module PipelineCPU (
     input clk,
     input start,
     output signed [31:0] r [0:31]
 );
+
 
 // When input start is zero, cpu should reset
 // When input start is high, cpu start running
@@ -11,38 +12,53 @@ module SingleCycleCPU (
 // The following provides simple template,
 // you can modify it as you wish except I/O pin and register module
 
+
 // PC related wires
-wire [31:0] pc_o;  
-wire signed [31:0] pc_mux_out;
+wire [31:0] IF_pc, ID_pc, Ex_pc;  
+wire signed [31:0] IF_pc_mux;
 wire signed [31:0] pc_add4;
-wire [31:0] instruction;
-wire [3:0] ID_BranchCtl;
-wire ID_BranchOut;
+wire [31:0] IF_instruction, ID_instruction;
+wire [3:0] ID_BranchCtl, Ex_BranchCtl;
+wire Ex_BranchOut;
+
 
 // main control wires
-wire ID_immUse;   // sel to alu_mux2. determine whether to use immediate on inputB of ALU
+wire ID_immUse. Ex_immUse;   
 wire ID_memtoReg, Ex_memtoReg, Mem_memtoReg, Wb_memtoReg;
 wire ID_regWrite, Ex_regWrite, Mem_regWrite, Wb_regWrite;
 wire ID_memRead, Ex_memRead, Mem_memRead;
 wire ID_memWrite, Ex_memWrite, Mem_memWrite;
-wire ID_branch;
-wire ID_jump;     // when jump. we have to link pc + 4 into reg, and put alu ouput into pc  
-wire ID_pcUse, Ex_pcUse;    // sel to alu_mux1. determine whether to use pc on inputA of ALU
+wire ID_branch, Ex_branch;
+wire ID_jump, Ex_jump;     
+wire ID_pcUse, Ex_pcUse; 
 wire[1:0] ID_ALUOp, Ex_ALUOp;
 
-// register wires and Data Memory 
-wire signed [31:0] WriteData_mux1_out;
-wire signed [31:0] WriteData_mux2_out;
+
+// register data wires, Memory 
+wire signed [31:0] Wb_writeData_mux1;
+wire signed [31:0] Wb_writeData_mux2;
 wire[31:0] ID_readData1, Ex_readData1;
-wire[31:0] ID_readData2, Ex__readData2;
-wire[31:0] Mem_readData3;
+wire[31:0] ID_readData2, Ex_readData2;
+wire[31:0] Mem_readData3, Wb_readData3;
+
+
+// register address wires
+input [5:0] Ex_RegRs, Mem_RegRs;
+input [5:0] Ex_RegRt;
+input [5:0] Ex_RegRd, Mem_RegRd, Wb_RegRd;
+
 
 // ALU related wires
-wire signed [31:0] imm;   
-wire signed [31:0] alu_mux1_out; 
-wire signed [31:0] alu_mux2_out;
-wire signed [31:0] ALUOut;
-wire[3:0] ALUCtl;
+wire signed [31:0] ID_imm, Ex_imm; 
+wire signed [31:0] Ex_aluSrc1; 
+wire signed [31:0] Ex_aluSrc2;
+wire signed [31:0] Ex_ALUOut, Mem_ALUOut;
+wire[3:0] ID_ALUCtl, Ex_ALUCtl;
+
+
+// forwarding unit
+wire [1:0] forwardA;
+wire [1:0] forwardB;
 
 
 /* Stage 1 : IF (insruction fetch) ------------------------------------------------------ */
@@ -50,104 +66,155 @@ wire[3:0] ALUCtl;
 PC m_PC(
     .clk(clk),
     .rst(start),
-    .pc_i(pc_mux_out),
-    .pc_o(pc_o)
+    .pc_i(IF_pc_mux),
+    .pc_o(IF_pc)
 );
+
 
 Mux2to1 #(.size(32)) m_Mux_PC(
-    .sel((branch && BranchOut) || jump),
+    .sel((Ex_branch && Ex_BranchOut) || Ex_jump),
     .s0(pc_add4),   
-    .s1(ALUOut),
-    .out(pc_mux_out)
+    .s1(Ex_ALUOut),
+    .out(IF_pc_mux)
 );
 
+
 Adder m_Adder_1(
-    .a(pc_o),
+    .a(IF_pc),
     .b(32'd4),
     .sum(pc_add4)
 );
 
+
 InstructionMemory m_InstMem(
-    .readAddr(pc_o),
-    .inst(instruction)
+    .readAddr(IF_pc),
+    .inst(IF_instruction)
 );
+
+
+Pipe_reg m_IF_ID(
+    .clk(clk),
+    .rst(start),
+    .flush()
+    .data_i({IF_pc, IF_insruction}),
+    .data_o({ID_pc, ID_instruction})
+)
 
 
 /* Stage 2 : ID (instruction decode & register read) ------------------------------------------------------ */
 
 Control m_Control(
-    .opcode(instruction[6:0]),
-    .immUse(immUse),
-    .memtoReg(memtoReg),
-    .regWrite(regWrite),
-    .memRead(memRead),
-    .memWrite(memWrite),
-    .branch(branch),
-    .jump(jump),
-    .pcUse(pcUse),
-    .ALUOp(ALUOp)
+    .opcode(ID_instruction[6:0]),
+    .immUse(ID_immUse),
+    .memtoReg(ID_memtoReg),
+    .regWrite(ID_regWrite),
+    .memRead(ID_memRead),
+    .memWrite(ID_memWrite),
+    .branch(ID_branch),
+    .jump(ID_jump),
+    .pcUse(ID_pcUse),
+    .ALUOp(ID_ALUOp)
 );
 
 
 Register m_Register(
     .clk(clk),
     .rst(start),
-    .regWrite(regWrite),
-    .readReg1(instruction[19:15]),
-    .readReg2(instruction[24:20]),
-    .writeReg(instruction[11:7]),
-    .writeData(WriteData_mux2_out),
-    .readData1(readData1),
-    .readData2(readData2)
+    .regWrite(Wb_regWrite),
+    .readReg1(ID_instruction[19:15]),
+    .readReg2(ID_instruction[24:20]),
+    .writeReg(ID_instruction[11:7]),
+    .writeData(Wb_writeData_mux2),
+    .readData1(ID_readData1),
+    .readData2(ID_readData2)
 );
 
 
 ALU_Branch_Ctrl m_ALU_Branch_Ctrl(
-    .ALUOp(ALUOp),
-    .funct7(instruction[30]),
-    .funct3(instruction[14:12]),
-    .ALUCtl(ALUCtl),
-    .BranchCtl(BranchCtl)
+    .ALUOp(ID_ALUOp),
+    .funct7(ID_instruction[30]),
+    .funct3(ID_instruction[14:12]),
+    .ALUCtl(ID_ALUCtl),
+    .BranchCtl(ID_BranchCtl)
 );
 
 
 ImmGen m_ImmGen(
-    .inst(instruction[31:0]),   
-    .imm(imm)                  
+    .inst(ID_instruction[31:0]),   
+    .imm(ID_imm)                  
+);
+
+
+Pipe_reg m_IF_ID(
+    .clk(clk),
+    .rst(start),
+    .flush(),               //-------------------- unfill in -------------------------//
+    .data_i({ID_immUse, ID_memtoReg, ID_regWrite, ID_memRead, ID_memWrite, ID_branch, ID_jump, ID_pcUse, ID_ALUOp, ID_pc, ID_imm, 
+                ID_readData1, ID_readData2, ID_ALUCtl, ID_BranchCtl, ID_instruction[19:15], ID_instruction[24:20], ID_instruction[11:7]}),
+    .data_o({Ex_immUse, Ex_memtoReg, Ex_regWrite, Ex_memRead, Ex_memWrite, Ex_branch, Ex_jump, Ex_pcUse, Ex_ALUOp, Ex_pc, Ex_imm, 
+                Ex_readData1, Ex_readData2, Ex_ALUCtl, Ex_BranchCtl, Ex_RegRt, Ex_RegRs, Ex_RegRd})
+)
+
+
+/* Stage 3 : Ex (execution)--------------------------------------------------------- */
+
+ALU m_ALU(
+    .ALUCtl(Ex_ALUCtl),
+    .A(Ex_aluSrc1_mux2),
+    .B(Ex_aluSrc2_mux2),
+    .ALUOut(Ex_ALUOut)
 );
 
 
 BranchComp m_BranchComp (
-    .BranchCtl(BranchCtl),
-    .A(readData1),
-    .B(readData2),
-    .BranchOut(BranchOut)
+    .BranchCtl(Ex_BranchCtl),
+    .A(Ex_readData1),
+    .B(Ex_readData2),
+    .BranchOut(Ex_BranchOut)
 );
 
 
-/* Stage 3 : EX (execution)--------------------------------------------------------- */
+wire signed [31:0] out1, out2;
 
-ALU m_ALU(
-    .ALUCtl(ALUCtl),
-    .A(alu_mux1_out),
-    .B(alu_mux2_out),
-    .ALUOut(ALUOut)
+Mux2to1 #(.size(32)) m_Mux1_ALUSrc1(
+    .sel(Ex_pcUse),
+    .s0(Ex_readData1),
+    .s1(Ex_pc),
+    .out(out1)
 );
 
 
-Mux2to1 #(.size(32)) m_Mux1_ALU(
-    .sel(pcUse),
-    .s0(readData1),
-    .s1(pc_o),
-    .out(alu_mux1_out)
+Mux3to1 #(.size(32)) m_Mux2_ALUSrc1(
+    .sel(),
+    .s0(out2),
+    .s1(),
+    .s2(),
+    .out(Ex_aluSrc1)
 );
+
 
 Mux2to1 #(.size(32)) m_Mux2_ALU(
-    .sel(immUse),
-    .s0(readData2),
-    .s1(imm),
-    .out(alu_mux2_out)
+    .sel(Ex_immUse),
+    .s0(Ex_readData2),
+    .s1(Ex_imm),
+    .out(out2)
 );
+
+
+Mux3to1 #(.size(32)) m_Mux2_ALUSrc1(
+    .sel(),
+    .s0(out2),
+    .s1(),
+    .s2(),
+    .out(Ex_aluSrc2)
+);
+
+
+ForwardUnit m_ForwardUnit(
+    .Mem_regWrite(Mem_regWrite),
+    .Wb_regWrite(Wb_regWrite),
+)
+
 
 // stage 4 : Mem (memory read) ----------------------------------------------------
 
@@ -161,7 +228,7 @@ DataMemory m_DataMemory(
     .readData(readData3)
 );
 
-// stage 5 : WB (write back) -------------------------------------------------------
+// stage 5 : Wb (write back) -------------------------------------------------------
 
 Mux2to1 #(.size(32)) m_Mux1_WriteData(
     .sel(memtoReg),
