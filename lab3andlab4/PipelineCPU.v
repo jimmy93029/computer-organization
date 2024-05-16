@@ -60,6 +60,12 @@ wire [1:0] forwardA;
 wire [1:0] forwardB;
 
 
+// harzard unit
+wire IF_ID_flush,
+wire ID_Ex_flush,
+wire pc_freeze; 
+
+
 /* Stage 1 : IF (insruction fetch) ------------------------------------------------------ */
 
 PC m_PC(
@@ -70,10 +76,20 @@ PC m_PC(
 );
 
 
-Mux2to1 #(.size(32)) m_Mux_PC(
+wire [31:0] pc_out;
+
+Mux2to1 #(.size(32)) m_Mux1_PC(
     .sel((Ex_branch && Ex_BranchOut) || Ex_jump),
     .s0(IF_pc_add4),   
     .s1(Ex_ALUOut),
+    .out(pc_out)
+);
+
+
+Mux2to1 #(.size(32)) m_Mux2_PC(
+    .sel(pc_freeze),
+    .s0(pc_out),   
+    .s1(IF_pc),
     .out(IF_pc_mux)
 );
 
@@ -94,7 +110,7 @@ InstructionMemory m_InstMem(
 Pipe_reg m_IF_ID(
     .clk(clk),
     .rst(start),
-    .flush()
+    .flush(IF_ID_flush)
     .data_i({IF_pc, IF_insruction}),
     .data_o({ID_pc, ID_instruction})
 )
@@ -144,10 +160,23 @@ ImmGen m_ImmGen(
 );
 
 
+HazardDetectUnit m_HazardDetectUnit(
+    .Ex_memRead(Ex_memRead),
+    .Ex_jump_or_branch(Ex_jump || (Ex_branch & Ex_BranchOut))
+    .Ex_RegRd(Ex_RegRd),
+    .ID_RegRs1(ID_RegRs1),
+    .ID_RegRs2(ID_RegRs2),
+    .IF_ID_flush(IF_ID_flush),
+    .ID_Ex_flush(ID_Ex_flush),
+    .pc_freeze(pc_freeze);    
+
+);
+
+
 Pipe_reg m_ID_Ex(
     .clk(clk),
     .rst(start),
-    .flush(),               //-------------------- unfill in -------------------------//
+    .flush(ID_Ex_flush),            
     .data_i({ID_immUse, ID_memtoReg, ID_regWrite, ID_memRead, ID_memWrite, ID_branch, ID_jump, ID_pcUse, ID_pc, ID_imm, 
                 ID_readData1, ID_readData2, ID_ALUCtl, ID_BranchCtl, ID_instruction[19:15], ID_instruction[24:20], ID_instruction[11:7]}),
     .data_o({Ex_immUse, Ex_memtoReg, Ex_regWrite, Ex_memRead, Ex_memWrite, Ex_branch, Ex_jump, Ex_pcUse, Ex_pc, Ex_imm, 
@@ -245,7 +274,7 @@ DataMemory m_DataMemory(
 );
 
 
-Pipe_reg m_Ex_Mem(
+Pipe_reg m_Mem_Wb(
     .clk(clk),
     .rst(start),
     .flush(1'd0)
