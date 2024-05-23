@@ -1,8 +1,8 @@
 .PHONY: test1
 test1:
 	make clean
-	verilator --build SingleCycleCPU.v Adder.v ALU_Branch_Ctrl.v ALU.v BranchComp.v Control.v DataMemory.v \
-	ImmGen.v InstructionMemory.v Mux2to1.v PC.v Register.v \
+	verilator --build --top-module SingleCycleCPU SingleCycleCPU.v Adder.v ALU_Branch_Ctrl.v ALU.v BranchComp.v Control.v DataMemory.v \
+	ForwardUnit.v HazardDetectUnit.v ImmGen.v InstructionMemory.v Mux2to1.v Mux3to1.v PC.v Register.v Pipe_reg.v \
 	--exe example_testbench.cpp -cc --trace -Wall
 	./obj_dir/VSingleCycleCPU
 
