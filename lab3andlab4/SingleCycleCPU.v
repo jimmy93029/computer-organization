@@ -42,9 +42,10 @@ wire[31:0] Mem_readData3, Wb_readData3;
 
 
 // register address wires
-wire [4:0] Ex_RegRs1, Mem_RegRs1;
+wire [4:0] Ex_RegRs1;
 wire [4:0] Ex_RegRs2;
 wire [4:0] Ex_RegRd, Mem_RegRd, Wb_RegRd;
+
 
 // ALU related wires
 wire signed [31:0] ID_imm, Ex_imm; 
@@ -106,7 +107,7 @@ InstructionMemory m_InstMem(
 );
 
 
-Pipe_reg m_IF_ID(
+Pipe_reg_IF_ID m_IF_ID(
     .clk(clk),
     .rst(start),
     .flush(IF_ID_flush),
@@ -175,7 +176,7 @@ HazardDetectUnit m_HazardDetectUnit(
 
 Pipe_reg_ID_Ex m_ID_Ex (
     .clk(clk),
-    .rst(rst),
+    .rst(start),
     .flush(ID_Ex_flush),
     .ID_pc(ID_pc),
     .ID_imm(ID_imm), 
@@ -285,6 +286,8 @@ Pipe_reg_Ex_Mem m_Ex_Mem (
     .rst(start),
     .flush(1'd0),
     .Ex_pc(Ex_pc),
+    .Ex_memtoReg(Ex_memtoReg),
+    .Ex_regWrite(Ex_regWrite),
     .Ex_memWrite(Ex_memWrite),
     .Ex_memRead(Ex_memRead),
     .Ex_jump(Ex_jump),
@@ -292,6 +295,8 @@ Pipe_reg_Ex_Mem m_Ex_Mem (
     .Ex_ALUOut(Ex_ALUOut),
     .Ex_readData2(Ex_readData2),
     .Mem_pc(Mem_pc),
+    .Mem_memtoReg(Mem_memtoReg),
+    .Mem_regWrite(Mem_regWrite),
     .Mem_memWrite(Mem_memWrite),
     .Mem_memRead(Mem_memRead),
     .Mem_jump(Mem_jump),
