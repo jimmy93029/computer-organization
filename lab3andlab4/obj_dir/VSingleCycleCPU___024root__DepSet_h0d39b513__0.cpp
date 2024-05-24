@@ -18,24 +18,24 @@ void VSingleCycleCPU___024root___eval_triggers__act(VSingleCycleCPU___024root* v
     // Body
     vlSelf->__VactTriggered.at(0U) = ((IData)(vlSelf->clk) 
                                       & (~ (IData)(vlSelf->__Vtrigrprev__TOP__clk)));
-    vlSelf->__VactTriggered.at(1U) = (((~ (IData)(vlSelf->clk)) 
-                                       & (IData)(vlSelf->__Vtrigrprev__TOP__clk)) 
-                                      | ((~ (IData)(vlSelf->start)) 
-                                         & (IData)(vlSelf->__Vtrigrprev__TOP__start)));
-    vlSelf->__VactTriggered.at(2U) = (((IData)(vlSelf->clk) 
+    vlSelf->__VactTriggered.at(1U) = (((IData)(vlSelf->clk) 
                                        & (~ (IData)(vlSelf->__Vtrigrprev__TOP__clk))) 
                                       | ((~ (IData)(vlSelf->start)) 
                                          & (IData)(vlSelf->__Vtrigrprev__TOP__start)));
-    vlSelf->__VactTriggered.at(3U) = ((vlSelf->SingleCycleCPU__DOT__ALUOut 
-                                       != vlSelf->__Vtrigrprev__TOP__SingleCycleCPU__DOT__ALUOut) 
-                                      | ((IData)(vlSelf->SingleCycleCPU__DOT__memRead) 
-                                         != (IData)(vlSelf->__Vtrigrprev__TOP__SingleCycleCPU__DOT__memRead)));
+    vlSelf->__VactTriggered.at(2U) = (((~ (IData)(vlSelf->clk)) 
+                                       & (IData)(vlSelf->__Vtrigrprev__TOP__clk)) 
+                                      | ((~ (IData)(vlSelf->start)) 
+                                         & (IData)(vlSelf->__Vtrigrprev__TOP__start)));
+    vlSelf->__VactTriggered.at(3U) = ((vlSelf->SingleCycleCPU__DOT__Mem_ALUOut 
+                                       != vlSelf->__Vtrigrprev__TOP__SingleCycleCPU__DOT__Mem_ALUOut) 
+                                      | ((IData)(vlSelf->SingleCycleCPU__DOT__Mem_memRead) 
+                                         != (IData)(vlSelf->__Vtrigrprev__TOP__SingleCycleCPU__DOT__Mem_memRead)));
     vlSelf->__Vtrigrprev__TOP__clk = vlSelf->clk;
     vlSelf->__Vtrigrprev__TOP__start = vlSelf->start;
-    vlSelf->__Vtrigrprev__TOP__SingleCycleCPU__DOT__ALUOut 
-        = vlSelf->SingleCycleCPU__DOT__ALUOut;
-    vlSelf->__Vtrigrprev__TOP__SingleCycleCPU__DOT__memRead 
-        = vlSelf->SingleCycleCPU__DOT__memRead;
+    vlSelf->__Vtrigrprev__TOP__SingleCycleCPU__DOT__Mem_ALUOut 
+        = vlSelf->SingleCycleCPU__DOT__Mem_ALUOut;
+    vlSelf->__Vtrigrprev__TOP__SingleCycleCPU__DOT__Mem_memRead 
+        = vlSelf->SingleCycleCPU__DOT__Mem_memRead;
     if (VL_UNLIKELY((1U & (~ (IData)(vlSelf->__VactDidInit))))) {
         vlSelf->__VactDidInit = 1U;
         vlSelf->__VactTriggered.at(3U) = 1U;

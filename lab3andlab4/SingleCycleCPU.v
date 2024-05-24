@@ -140,7 +140,7 @@ Register m_Register(
     .regWrite(Wb_regWrite),
     .readReg1(ID_instruction[19:15]),
     .readReg2(ID_instruction[24:20]),
-    .writeReg(ID_instruction[11:7]),
+    .writeReg(Wb_RegRd),
     .writeData(Wb_writeData),
     .readData1(ID_readData1),
     .readData2(ID_readData2)
@@ -161,6 +161,8 @@ ImmGen m_ImmGen(
     .imm(ID_imm)                  
 );
 
+
+// Hazard
 
 HazardDetectUnit m_HazardDetectUnit(
     .Ex_memRead(Ex_memRead),
@@ -224,50 +226,54 @@ ALU m_ALU(
     .ALUOut(Ex_ALUOut)
 );
 
-
 BranchComp m_BranchComp (
     .BranchCtl(Ex_BranchCtl),
-    .A(Ex_readData1),
-    .B(Ex_readData2),
+    .A(Ex_aluSrc1),
+    .B(Ex_aluSrc2),
     .BranchOut(Ex_BranchOut)
 );
 
 
+// ALU source 1 (A)
 wire signed [31:0] out1, out2;
 
-Mux2to1 #(.size(32)) m_Mux1_ALUSrc1(
-    .sel(Ex_pcUse),
+Mux3to1 #(.size(32)) m_Mux1_ALUSrc1(
+    .sel(forwardA),
     .s0(Ex_readData1),
-    .s1(Ex_pc),
+    .s1(Wb_writeData),
+    .s2(Mem_ALUOut),
     .out(out1)
 );
 
 
-Mux3to1 #(.size(32)) m_Mux2_ALUSrc1(
-    .sel(forwardA),
+Mux2to1 #(.size(32)) m_Mux2_ALUSrc1(
+    .sel(Ex_pcUse),
     .s0(out1),
-    .s1(Wb_writeData),
-    .s2(Mem_ALUOut),
+    .s1(Ex_pc),
     .out(Ex_aluSrc1)
 );
 
 
-Mux2to1 #(.size(32)) m_Mux1_ALUSrc2(
-    .sel(Ex_immUse),
+// ALU source 2 (B)
+
+Mux3to1 #(.size(32)) m_Mux1_ALUSrc2(
+    .sel(forwardB),
     .s0(Ex_readData2),
-    .s1(Ex_imm),
+    .s1(Wb_writeData),
+    .s2(Mem_ALUOut),
     .out(out2)
 );
 
 
-Mux3to1 #(.size(32)) m_Mux2_ALUSrc2(
-    .sel(forwardB),
+Mux2to1 #(.size(32)) m_Mux2_ALUSrc2(
+    .sel(Ex_immUse),
     .s0(out2),
-    .s1(Wb_writeData),
-    .s2(Mem_ALUOut),
+    .s1(Ex_imm),
     .out(Ex_aluSrc2)
 );
 
+
+// Forwarding 
 
 ForwardUnit m_ForwardUnit(
     .Mem_regWrite(Mem_regWrite),
