@@ -37,7 +37,7 @@ wire[1:0] ID_ALUOp;
 // register data wires, Memory 
 wire signed [31:0] Wb_writeData;
 wire [31:0] ID_readData1, Ex_readData1;
-wire[31:0] ID_readData2, Ex_readData2, Mem_readData2;
+wire[31:0] ID_readData2, Ex_readData2, Mem_rs2_Data;
 wire[31:0] Mem_readData3, Wb_readData3;
 
 
@@ -49,8 +49,10 @@ wire [4:0] Ex_RegRd, Mem_RegRd, Wb_RegRd;
 
 // ALU related wires
 wire signed [31:0] ID_imm, Ex_imm; 
-wire signed [31:0] Ex_aluSrc1; 
-wire signed [31:0] Ex_aluSrc2;
+wire signed [31:0] aluSrc1; 
+wire signed [31:0] aluSrc2;
+wire signed [31:0] rs1_Data;
+wire signed [31:0] rs2_Data;
 wire signed [31:0] Ex_ALUOut, Mem_ALUOut, Wb_ALUOut;
 wire[3:0] ID_ALUCtl, Ex_ALUCtl;
 
@@ -63,7 +65,11 @@ wire [1:0] forwardB;
 // harzard unit
 wire IF_ID_flush;
 wire ID_Ex_flush;
+wire IF_ID_freeze;
 wire pc_freeze; 
+
+// temp
+wire signed [31:0] out3;
 
 
 /* Stage 1 : IF (insruction fetch) ------------------------------------------------------ */
@@ -111,8 +117,11 @@ Pipe_reg_IF_ID m_IF_ID(
     .clk(clk),
     .rst(start),
     .flush(IF_ID_flush),
+    .freeze(IF_ID_freeze),
     .IF_pc(IF_pc),
     .IF_inst(IF_instruction),
+    .ID_pc_i(ID_pc),
+    .ID_inst_i(ID_instruction),  
     .ID_pc(ID_pc),
     .ID_inst(ID_instruction)
 );
@@ -172,6 +181,7 @@ HazardDetectUnit m_HazardDetectUnit(
     .ID_RegRs2(ID_instruction[24:20]),
     .IF_ID_flush(IF_ID_flush),
     .ID_Ex_flush(ID_Ex_flush),
+    .IF_ID_freeze(IF_ID_freeze),
     .pc_freeze(pc_freeze)
 );
 
@@ -221,36 +231,35 @@ Pipe_reg_ID_Ex m_ID_Ex (
 
 ALU m_ALU(
     .ALUCtl(Ex_ALUCtl),
-    .A(Ex_aluSrc1),
-    .B(Ex_aluSrc2),
+    .A(aluSrc1),
+    .B(aluSrc2),
     .ALUOut(Ex_ALUOut)
 );
 
 BranchComp m_BranchComp (
     .BranchCtl(Ex_BranchCtl),
-    .A(Ex_aluSrc1),
-    .B(Ex_aluSrc2),
+    .A(rs1_Data),
+    .B(rs2_Data),
     .BranchOut(Ex_BranchOut)
 );
 
 
 // ALU source 1 (A)
-wire signed [31:0] out1, out2;
 
 Mux3to1 #(.size(32)) m_Mux1_ALUSrc1(
     .sel(forwardA),
     .s0(Ex_readData1),
     .s1(Wb_writeData),
     .s2(Mem_ALUOut),
-    .out(out1)
+    .out(rs1_Data)
 );
 
 
 Mux2to1 #(.size(32)) m_Mux2_ALUSrc1(
     .sel(Ex_pcUse),
-    .s0(out1),
+    .s0(rs1_Data),
     .s1(Ex_pc),
-    .out(Ex_aluSrc1)
+    .out(aluSrc1)
 );
 
 
@@ -261,15 +270,15 @@ Mux3to1 #(.size(32)) m_Mux1_ALUSrc2(
     .s0(Ex_readData2),
     .s1(Wb_writeData),
     .s2(Mem_ALUOut),
-    .out(out2)
+    .out(rs2_Data)
 );
 
 
 Mux2to1 #(.size(32)) m_Mux2_ALUSrc2(
     .sel(Ex_immUse),
-    .s0(out2),
+    .s0(rs2_Data),
     .s1(Ex_imm),
-    .out(Ex_aluSrc2)
+    .out(aluSrc2)
 );
 
 
@@ -299,7 +308,7 @@ Pipe_reg_Ex_Mem m_Ex_Mem (
     .Ex_jump(Ex_jump),
     .Ex_RegRd(Ex_RegRd),
     .Ex_ALUOut(Ex_ALUOut),
-    .Ex_readData2(Ex_readData2),
+    .Ex_readData2(rs2_Data),
     .Mem_pc(Mem_pc),
     .Mem_memtoReg(Mem_memtoReg),
     .Mem_regWrite(Mem_regWrite),
@@ -308,7 +317,7 @@ Pipe_reg_Ex_Mem m_Ex_Mem (
     .Mem_jump(Mem_jump),
     .Mem_RegRd(Mem_RegRd),
     .Mem_ALUOut(Mem_ALUOut),
-    .Mem_readData2(Mem_readData2)
+    .Mem_readData2(Mem_rs2_Data)
 );
 
 
@@ -320,7 +329,7 @@ DataMemory m_DataMemory(
     .memWrite(Mem_memWrite),
     .memRead(Mem_memRead),
     .address(Mem_ALUOut),
-    .writeData(Mem_readData2),
+    .writeData(Mem_rs2_Data),
     .readData(Mem_readData3)
 );
 
@@ -348,8 +357,6 @@ Pipe_reg_Mem_Wb m_Mem_Wb (
 
 // stage 5 : Wb (write back) -------------------------------------------------------
 
-
-wire signed [31:0] out3;
 
 Mux2to1 #(.size(32)) m_Mux1_WriteData(
     .sel(Wb_memtoReg),
