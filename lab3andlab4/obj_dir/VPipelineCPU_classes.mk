@@ -2,7 +2,7 @@
 # DESCRIPTION: Verilator output: Make include file with class lists
 #
 # This file lists generated Verilated files, for including in higher level makefiles.
-# See VSingleCycleCPU.mk for the caller.
+# See VPipelineCPU.mk for the caller.
 
 ### Switches...
 # C11 constructs required?  0/1 (always on now)
@@ -23,25 +23,25 @@ VM_TRACE_FST = 0
 ### Object file lists...
 # Generated module classes, fast-path, compile with highest optimization
 VM_CLASSES_FAST += \
-	VSingleCycleCPU \
-	VSingleCycleCPU___024root__DepSet_h0d39b513__0 \
-	VSingleCycleCPU___024root__DepSet_hf8cd7fb5__0 \
+	VPipelineCPU \
+	VPipelineCPU___024root__DepSet_hd9795ddf__0 \
+	VPipelineCPU___024root__DepSet_h1c65c48b__0 \
 
 # Generated module classes, non-fast-path, compile with low/medium optimization
 VM_CLASSES_SLOW += \
-	VSingleCycleCPU__ConstPool_0 \
-	VSingleCycleCPU___024root__Slow \
-	VSingleCycleCPU___024root__DepSet_h0d39b513__0__Slow \
-	VSingleCycleCPU___024root__DepSet_hf8cd7fb5__0__Slow \
+	VPipelineCPU__ConstPool_0 \
+	VPipelineCPU___024root__Slow \
+	VPipelineCPU___024root__DepSet_hd9795ddf__0__Slow \
+	VPipelineCPU___024root__DepSet_h1c65c48b__0__Slow \
 
 # Generated support classes, fast-path, compile with highest optimization
 VM_SUPPORT_FAST += \
-	VSingleCycleCPU__Trace__0 \
+	VPipelineCPU__Trace__0 \
 
 # Generated support classes, non-fast-path, compile with low/medium optimization
 VM_SUPPORT_SLOW += \
-	VSingleCycleCPU__Syms \
-	VSingleCycleCPU__Trace__0__Slow \
+	VPipelineCPU__Syms \
+	VPipelineCPU__Trace__0__Slow \
 
 # Global classes, need linked once per executable, fast-path, compile with highest optimization
 VM_GLOBAL_FAST += \

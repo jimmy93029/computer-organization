@@ -1,16 +1,16 @@
 // Verilated -*- C++ -*-
 // DESCRIPTION: Verilator output: Symbol table implementation internals
 
-#include "VSingleCycleCPU__Syms.h"
-#include "VSingleCycleCPU.h"
-#include "VSingleCycleCPU___024root.h"
+#include "VPipelineCPU__Syms.h"
+#include "VPipelineCPU.h"
+#include "VPipelineCPU___024root.h"
 
 // FUNCTIONS
-VSingleCycleCPU__Syms::~VSingleCycleCPU__Syms()
+VPipelineCPU__Syms::~VPipelineCPU__Syms()
 {
 }
 
-VSingleCycleCPU__Syms::VSingleCycleCPU__Syms(VerilatedContext* contextp, const char* namep, VSingleCycleCPU* modelp)
+VPipelineCPU__Syms::VPipelineCPU__Syms(VerilatedContext* contextp, const char* namep, VPipelineCPU* modelp)
     : VerilatedSyms{contextp}
     // Setup internal state of the Syms class
     , __Vm_modelp{modelp}

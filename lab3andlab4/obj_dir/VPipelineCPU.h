@@ -5,20 +5,20 @@
 // The class here is then constructed to instantiate the design.
 // See the Verilator manual for examples.
 
-#ifndef VERILATED_VSINGLECYCLECPU_H_
-#define VERILATED_VSINGLECYCLECPU_H_  // guard
+#ifndef VERILATED_VPIPELINECPU_H_
+#define VERILATED_VPIPELINECPU_H_  // guard
 
 #include "verilated.h"
 
-class VSingleCycleCPU__Syms;
-class VSingleCycleCPU___024root;
+class VPipelineCPU__Syms;
+class VPipelineCPU___024root;
 class VerilatedVcdC;
 
 // This class is the main interface to the Verilated model
-class VSingleCycleCPU VL_NOT_FINAL : public VerilatedModel {
+class VPipelineCPU VL_NOT_FINAL : public VerilatedModel {
   private:
     // Symbol table holding complete model state (owned by this class)
-    VSingleCycleCPU__Syms* const vlSymsp;
+    VPipelineCPU__Syms* const vlSymsp;
 
   public:
 
@@ -35,19 +35,19 @@ class VSingleCycleCPU VL_NOT_FINAL : public VerilatedModel {
 
     // Root instance pointer to allow access to model internals,
     // including inlined /* verilator public_flat_* */ items.
-    VSingleCycleCPU___024root* const rootp;
+    VPipelineCPU___024root* const rootp;
 
     // CONSTRUCTORS
     /// Construct the model; called by application code
     /// If contextp is null, then the model will use the default global context
     /// If name is "", then makes a wrapper with a
     /// single model invisible with respect to DPI scope names.
-    explicit VSingleCycleCPU(VerilatedContext* contextp, const char* name = "TOP");
-    explicit VSingleCycleCPU(const char* name = "TOP");
+    explicit VPipelineCPU(VerilatedContext* contextp, const char* name = "TOP");
+    explicit VPipelineCPU(const char* name = "TOP");
     /// Destroy the model; called (often implicitly) by application code
-    virtual ~VSingleCycleCPU();
+    virtual ~VPipelineCPU();
   private:
-    VL_UNCOPYABLE(VSingleCycleCPU);  ///< Copying not allowed
+    VL_UNCOPYABLE(VPipelineCPU);  ///< Copying not allowed
 
   public:
     // API METHODS

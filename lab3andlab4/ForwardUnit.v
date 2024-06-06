@@ -16,10 +16,10 @@ always @* begin
 
     // EX hazard
     if (Mem_regWrite && (Mem_RegRd != 0) && (Mem_RegRd == Ex_RegRs1))
-        forwardA = 2'b10;  // Corrected value to fit 2-bit size
+        forwardA = 2'b10;  
     
     if (Mem_regWrite && (Mem_RegRd != 0) && (Mem_RegRd == Ex_RegRs2))
-        forwardB = 2'b10;  // Corrected value to fit 2-bit size
+        forwardB = 2'b10;  
 
     // Mem hazard
     if (Wb_regWrite && (Wb_RegRd != 0) && (Wb_RegRd == Ex_RegRs1) &&

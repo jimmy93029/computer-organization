@@ -8,13 +8,13 @@
 
 using namespace std;
 
-#include "VSingleCycleCPU.h"
+#include "VPipelineCPU.h"
 
 #define max_cycles 2000
 
 VerilatedContext *contextp = new VerilatedContext;
 VerilatedVcdC *m_trace = new VerilatedVcdC;
-VSingleCycleCPU *top = new VSingleCycleCPU{contextp};
+VPipelineCPU *top = new VPipelineCPU{contextp};
 
 void SingleCycleCPUTest(int cycle){
     // reset

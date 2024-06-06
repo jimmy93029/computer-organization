@@ -1,13 +1,13 @@
 // Verilated -*- C++ -*-
 // DESCRIPTION: Verilator output: Tracing implementation internals
 #include "verilated_vcd_c.h"
-#include "VSingleCycleCPU__Syms.h"
+#include "VPipelineCPU__Syms.h"
 
 
-VL_ATTR_COLD void VSingleCycleCPU___024root__trace_init_sub__TOP__0(VSingleCycleCPU___024root* vlSelf, VerilatedVcd* tracep) {
+VL_ATTR_COLD void VPipelineCPU___024root__trace_init_sub__TOP__0(VPipelineCPU___024root* vlSelf, VerilatedVcd* tracep) {
     if (false && vlSelf) {}  // Prevent unused
-    VSingleCycleCPU__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
-    VL_DEBUG_IF(VL_DBG_MSGF("+    VSingleCycleCPU___024root__trace_init_sub__TOP__0\n"); );
+    VPipelineCPU__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
+    VL_DEBUG_IF(VL_DBG_MSGF("+    VPipelineCPU___024root__trace_init_sub__TOP__0\n"); );
     // Init
     const int c = vlSymsp->__Vm_baseCode;
     // Body
@@ -16,7 +16,7 @@ VL_ATTR_COLD void VSingleCycleCPU___024root__trace_init_sub__TOP__0(VSingleCycle
     for (int i = 0; i < 32; ++i) {
         tracep->declBus(c+105+i*1,"r", true,(i+0), 31,0);
     }
-    tracep->pushNamePrefix("SingleCycleCPU ");
+    tracep->pushNamePrefix("PipelineCPU ");
     tracep->declBit(c+103,"clk", false,-1);
     tracep->declBit(c+104,"start", false,-1);
     for (int i = 0; i < 32; ++i) {
@@ -345,178 +345,178 @@ VL_ATTR_COLD void VSingleCycleCPU___024root__trace_init_sub__TOP__0(VSingleCycle
     tracep->popNamePrefix(2);
 }
 
-VL_ATTR_COLD void VSingleCycleCPU___024root__trace_init_top(VSingleCycleCPU___024root* vlSelf, VerilatedVcd* tracep) {
+VL_ATTR_COLD void VPipelineCPU___024root__trace_init_top(VPipelineCPU___024root* vlSelf, VerilatedVcd* tracep) {
     if (false && vlSelf) {}  // Prevent unused
-    VSingleCycleCPU__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
-    VL_DEBUG_IF(VL_DBG_MSGF("+    VSingleCycleCPU___024root__trace_init_top\n"); );
+    VPipelineCPU__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
+    VL_DEBUG_IF(VL_DBG_MSGF("+    VPipelineCPU___024root__trace_init_top\n"); );
     // Body
-    VSingleCycleCPU___024root__trace_init_sub__TOP__0(vlSelf, tracep);
+    VPipelineCPU___024root__trace_init_sub__TOP__0(vlSelf, tracep);
 }
 
-VL_ATTR_COLD void VSingleCycleCPU___024root__trace_full_top_0(void* voidSelf, VerilatedVcd::Buffer* bufp);
-void VSingleCycleCPU___024root__trace_chg_top_0(void* voidSelf, VerilatedVcd::Buffer* bufp);
-void VSingleCycleCPU___024root__trace_cleanup(void* voidSelf, VerilatedVcd* /*unused*/);
+VL_ATTR_COLD void VPipelineCPU___024root__trace_full_top_0(void* voidSelf, VerilatedVcd::Buffer* bufp);
+void VPipelineCPU___024root__trace_chg_top_0(void* voidSelf, VerilatedVcd::Buffer* bufp);
+void VPipelineCPU___024root__trace_cleanup(void* voidSelf, VerilatedVcd* /*unused*/);
 
-VL_ATTR_COLD void VSingleCycleCPU___024root__trace_register(VSingleCycleCPU___024root* vlSelf, VerilatedVcd* tracep) {
+VL_ATTR_COLD void VPipelineCPU___024root__trace_register(VPipelineCPU___024root* vlSelf, VerilatedVcd* tracep) {
     if (false && vlSelf) {}  // Prevent unused
-    VSingleCycleCPU__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
-    VL_DEBUG_IF(VL_DBG_MSGF("+    VSingleCycleCPU___024root__trace_register\n"); );
+    VPipelineCPU__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
+    VL_DEBUG_IF(VL_DBG_MSGF("+    VPipelineCPU___024root__trace_register\n"); );
     // Body
-    tracep->addFullCb(&VSingleCycleCPU___024root__trace_full_top_0, vlSelf);
-    tracep->addChgCb(&VSingleCycleCPU___024root__trace_chg_top_0, vlSelf);
-    tracep->addCleanupCb(&VSingleCycleCPU___024root__trace_cleanup, vlSelf);
+    tracep->addFullCb(&VPipelineCPU___024root__trace_full_top_0, vlSelf);
+    tracep->addChgCb(&VPipelineCPU___024root__trace_chg_top_0, vlSelf);
+    tracep->addCleanupCb(&VPipelineCPU___024root__trace_cleanup, vlSelf);
 }
 
-VL_ATTR_COLD void VSingleCycleCPU___024root__trace_full_sub_0(VSingleCycleCPU___024root* vlSelf, VerilatedVcd::Buffer* bufp);
+VL_ATTR_COLD void VPipelineCPU___024root__trace_full_sub_0(VPipelineCPU___024root* vlSelf, VerilatedVcd::Buffer* bufp);
 
-VL_ATTR_COLD void VSingleCycleCPU___024root__trace_full_top_0(void* voidSelf, VerilatedVcd::Buffer* bufp) {
-    VL_DEBUG_IF(VL_DBG_MSGF("+    VSingleCycleCPU___024root__trace_full_top_0\n"); );
+VL_ATTR_COLD void VPipelineCPU___024root__trace_full_top_0(void* voidSelf, VerilatedVcd::Buffer* bufp) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    VPipelineCPU___024root__trace_full_top_0\n"); );
     // Init
-    VSingleCycleCPU___024root* const __restrict vlSelf VL_ATTR_UNUSED = static_cast<VSingleCycleCPU___024root*>(voidSelf);
-    VSingleCycleCPU__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
+    VPipelineCPU___024root* const __restrict vlSelf VL_ATTR_UNUSED = static_cast<VPipelineCPU___024root*>(voidSelf);
+    VPipelineCPU__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     // Body
-    VSingleCycleCPU___024root__trace_full_sub_0((&vlSymsp->TOP), bufp);
+    VPipelineCPU___024root__trace_full_sub_0((&vlSymsp->TOP), bufp);
 }
 
-VL_ATTR_COLD void VSingleCycleCPU___024root__trace_full_sub_0(VSingleCycleCPU___024root* vlSelf, VerilatedVcd::Buffer* bufp) {
+VL_ATTR_COLD void VPipelineCPU___024root__trace_full_sub_0(VPipelineCPU___024root* vlSelf, VerilatedVcd::Buffer* bufp) {
     if (false && vlSelf) {}  // Prevent unused
-    VSingleCycleCPU__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
-    VL_DEBUG_IF(VL_DBG_MSGF("+    VSingleCycleCPU___024root__trace_full_sub_0\n"); );
+    VPipelineCPU__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
+    VL_DEBUG_IF(VL_DBG_MSGF("+    VPipelineCPU___024root__trace_full_sub_0\n"); );
     // Init
     uint32_t* const oldp VL_ATTR_UNUSED = bufp->oldp(vlSymsp->__Vm_baseCode);
     // Body
-    bufp->fullIData(oldp+1,(vlSelf->SingleCycleCPU__DOT__ID_pc),32);
-    bufp->fullIData(oldp+2,(vlSelf->SingleCycleCPU__DOT__Ex_pc),32);
-    bufp->fullIData(oldp+3,(vlSelf->SingleCycleCPU__DOT__Mem_pc),32);
-    bufp->fullIData(oldp+4,(vlSelf->SingleCycleCPU__DOT__Wb_pc),32);
-    bufp->fullIData(oldp+5,(((IData)(4U) + vlSelf->SingleCycleCPU__DOT__Wb_pc)),32);
-    bufp->fullCData(oldp+6,(vlSelf->SingleCycleCPU__DOT__Ex_BranchCtl),4);
-    bufp->fullBit(oldp+7,(vlSelf->SingleCycleCPU__DOT__Ex_immUse));
-    bufp->fullBit(oldp+8,(vlSelf->SingleCycleCPU__DOT__Ex_memtoReg));
-    bufp->fullBit(oldp+9,(vlSelf->SingleCycleCPU__DOT__Mem_memtoReg));
-    bufp->fullBit(oldp+10,(vlSelf->SingleCycleCPU__DOT__Wb_memtoReg));
-    bufp->fullBit(oldp+11,(vlSelf->SingleCycleCPU__DOT__Ex_memWrite));
-    bufp->fullBit(oldp+12,(vlSelf->SingleCycleCPU__DOT__Mem_memWrite));
-    bufp->fullBit(oldp+13,(vlSelf->SingleCycleCPU__DOT__Ex_branch));
-    bufp->fullBit(oldp+14,(vlSelf->SingleCycleCPU__DOT__Ex_jump));
-    bufp->fullBit(oldp+15,(vlSelf->SingleCycleCPU__DOT__Mem_jump));
-    bufp->fullBit(oldp+16,(vlSelf->SingleCycleCPU__DOT__Wb_jump));
-    bufp->fullBit(oldp+17,(vlSelf->SingleCycleCPU__DOT__Ex_pcUse));
-    bufp->fullIData(oldp+18,(vlSelf->SingleCycleCPU__DOT__Ex_readData1),32);
-    bufp->fullIData(oldp+19,(vlSelf->SingleCycleCPU__DOT__Ex_readData2),32);
-    bufp->fullIData(oldp+20,(vlSelf->SingleCycleCPU__DOT__Mem_rs2_Data),32);
-    bufp->fullIData(oldp+21,(vlSelf->SingleCycleCPU__DOT__Wb_readData3),32);
-    bufp->fullCData(oldp+22,(vlSelf->SingleCycleCPU__DOT__Ex_RegRs1),5);
-    bufp->fullCData(oldp+23,(vlSelf->SingleCycleCPU__DOT__Ex_RegRs2),5);
-    bufp->fullIData(oldp+24,(vlSelf->SingleCycleCPU__DOT__Ex_imm),32);
-    bufp->fullIData(oldp+25,(vlSelf->SingleCycleCPU__DOT__Wb_ALUOut),32);
-    bufp->fullCData(oldp+26,(vlSelf->SingleCycleCPU__DOT__Ex_ALUCtl),4);
-    bufp->fullIData(oldp+27,(((IData)(vlSelf->SingleCycleCPU__DOT__Wb_memtoReg)
-                               ? vlSelf->SingleCycleCPU__DOT__Wb_readData3
-                               : vlSelf->SingleCycleCPU__DOT__Wb_ALUOut)),32);
-    bufp->fullIData(oldp+28,(vlSelf->SingleCycleCPU__DOT__m_Register__DOT__regs[0]),32);
-    bufp->fullIData(oldp+29,(vlSelf->SingleCycleCPU__DOT__m_Register__DOT__regs[1]),32);
-    bufp->fullIData(oldp+30,(vlSelf->SingleCycleCPU__DOT__m_Register__DOT__regs[2]),32);
-    bufp->fullIData(oldp+31,(vlSelf->SingleCycleCPU__DOT__m_Register__DOT__regs[3]),32);
-    bufp->fullIData(oldp+32,(vlSelf->SingleCycleCPU__DOT__m_Register__DOT__regs[4]),32);
-    bufp->fullIData(oldp+33,(vlSelf->SingleCycleCPU__DOT__m_Register__DOT__regs[5]),32);
-    bufp->fullIData(oldp+34,(vlSelf->SingleCycleCPU__DOT__m_Register__DOT__regs[6]),32);
-    bufp->fullIData(oldp+35,(vlSelf->SingleCycleCPU__DOT__m_Register__DOT__regs[7]),32);
-    bufp->fullIData(oldp+36,(vlSelf->SingleCycleCPU__DOT__m_Register__DOT__regs[8]),32);
-    bufp->fullIData(oldp+37,(vlSelf->SingleCycleCPU__DOT__m_Register__DOT__regs[9]),32);
-    bufp->fullIData(oldp+38,(vlSelf->SingleCycleCPU__DOT__m_Register__DOT__regs[10]),32);
-    bufp->fullIData(oldp+39,(vlSelf->SingleCycleCPU__DOT__m_Register__DOT__regs[11]),32);
-    bufp->fullIData(oldp+40,(vlSelf->SingleCycleCPU__DOT__m_Register__DOT__regs[12]),32);
-    bufp->fullIData(oldp+41,(vlSelf->SingleCycleCPU__DOT__m_Register__DOT__regs[13]),32);
-    bufp->fullIData(oldp+42,(vlSelf->SingleCycleCPU__DOT__m_Register__DOT__regs[14]),32);
-    bufp->fullIData(oldp+43,(vlSelf->SingleCycleCPU__DOT__m_Register__DOT__regs[15]),32);
-    bufp->fullIData(oldp+44,(vlSelf->SingleCycleCPU__DOT__m_Register__DOT__regs[16]),32);
-    bufp->fullIData(oldp+45,(vlSelf->SingleCycleCPU__DOT__m_Register__DOT__regs[17]),32);
-    bufp->fullIData(oldp+46,(vlSelf->SingleCycleCPU__DOT__m_Register__DOT__regs[18]),32);
-    bufp->fullIData(oldp+47,(vlSelf->SingleCycleCPU__DOT__m_Register__DOT__regs[19]),32);
-    bufp->fullIData(oldp+48,(vlSelf->SingleCycleCPU__DOT__m_Register__DOT__regs[20]),32);
-    bufp->fullIData(oldp+49,(vlSelf->SingleCycleCPU__DOT__m_Register__DOT__regs[21]),32);
-    bufp->fullIData(oldp+50,(vlSelf->SingleCycleCPU__DOT__m_Register__DOT__regs[22]),32);
-    bufp->fullIData(oldp+51,(vlSelf->SingleCycleCPU__DOT__m_Register__DOT__regs[23]),32);
-    bufp->fullIData(oldp+52,(vlSelf->SingleCycleCPU__DOT__m_Register__DOT__regs[24]),32);
-    bufp->fullIData(oldp+53,(vlSelf->SingleCycleCPU__DOT__m_Register__DOT__regs[25]),32);
-    bufp->fullIData(oldp+54,(vlSelf->SingleCycleCPU__DOT__m_Register__DOT__regs[26]),32);
-    bufp->fullIData(oldp+55,(vlSelf->SingleCycleCPU__DOT__m_Register__DOT__regs[27]),32);
-    bufp->fullIData(oldp+56,(vlSelf->SingleCycleCPU__DOT__m_Register__DOT__regs[28]),32);
-    bufp->fullIData(oldp+57,(vlSelf->SingleCycleCPU__DOT__m_Register__DOT__regs[29]),32);
-    bufp->fullIData(oldp+58,(vlSelf->SingleCycleCPU__DOT__m_Register__DOT__regs[30]),32);
-    bufp->fullIData(oldp+59,(vlSelf->SingleCycleCPU__DOT__m_Register__DOT__regs[31]),32);
-    bufp->fullIData(oldp+60,(vlSelf->SingleCycleCPU__DOT__IF_pc),32);
-    bufp->fullIData(oldp+61,(((IData)(4U) + vlSelf->SingleCycleCPU__DOT__IF_pc)),32);
-    bufp->fullIData(oldp+62,(((0x80U <= vlSelf->SingleCycleCPU__DOT__IF_pc)
-                               ? 0U : ((vlSelf->SingleCycleCPU__DOT__m_InstMem__DOT__insts
-                                        [(0x7fU & vlSelf->SingleCycleCPU__DOT__IF_pc)] 
+    bufp->fullIData(oldp+1,(vlSelf->PipelineCPU__DOT__ID_pc),32);
+    bufp->fullIData(oldp+2,(vlSelf->PipelineCPU__DOT__Ex_pc),32);
+    bufp->fullIData(oldp+3,(vlSelf->PipelineCPU__DOT__Mem_pc),32);
+    bufp->fullIData(oldp+4,(vlSelf->PipelineCPU__DOT__Wb_pc),32);
+    bufp->fullIData(oldp+5,(((IData)(4U) + vlSelf->PipelineCPU__DOT__Wb_pc)),32);
+    bufp->fullCData(oldp+6,(vlSelf->PipelineCPU__DOT__Ex_BranchCtl),4);
+    bufp->fullBit(oldp+7,(vlSelf->PipelineCPU__DOT__Ex_immUse));
+    bufp->fullBit(oldp+8,(vlSelf->PipelineCPU__DOT__Ex_memtoReg));
+    bufp->fullBit(oldp+9,(vlSelf->PipelineCPU__DOT__Mem_memtoReg));
+    bufp->fullBit(oldp+10,(vlSelf->PipelineCPU__DOT__Wb_memtoReg));
+    bufp->fullBit(oldp+11,(vlSelf->PipelineCPU__DOT__Ex_memWrite));
+    bufp->fullBit(oldp+12,(vlSelf->PipelineCPU__DOT__Mem_memWrite));
+    bufp->fullBit(oldp+13,(vlSelf->PipelineCPU__DOT__Ex_branch));
+    bufp->fullBit(oldp+14,(vlSelf->PipelineCPU__DOT__Ex_jump));
+    bufp->fullBit(oldp+15,(vlSelf->PipelineCPU__DOT__Mem_jump));
+    bufp->fullBit(oldp+16,(vlSelf->PipelineCPU__DOT__Wb_jump));
+    bufp->fullBit(oldp+17,(vlSelf->PipelineCPU__DOT__Ex_pcUse));
+    bufp->fullIData(oldp+18,(vlSelf->PipelineCPU__DOT__Ex_readData1),32);
+    bufp->fullIData(oldp+19,(vlSelf->PipelineCPU__DOT__Ex_readData2),32);
+    bufp->fullIData(oldp+20,(vlSelf->PipelineCPU__DOT__Mem_rs2_Data),32);
+    bufp->fullIData(oldp+21,(vlSelf->PipelineCPU__DOT__Wb_readData3),32);
+    bufp->fullCData(oldp+22,(vlSelf->PipelineCPU__DOT__Ex_RegRs1),5);
+    bufp->fullCData(oldp+23,(vlSelf->PipelineCPU__DOT__Ex_RegRs2),5);
+    bufp->fullIData(oldp+24,(vlSelf->PipelineCPU__DOT__Ex_imm),32);
+    bufp->fullIData(oldp+25,(vlSelf->PipelineCPU__DOT__Wb_ALUOut),32);
+    bufp->fullCData(oldp+26,(vlSelf->PipelineCPU__DOT__Ex_ALUCtl),4);
+    bufp->fullIData(oldp+27,(((IData)(vlSelf->PipelineCPU__DOT__Wb_memtoReg)
+                               ? vlSelf->PipelineCPU__DOT__Wb_readData3
+                               : vlSelf->PipelineCPU__DOT__Wb_ALUOut)),32);
+    bufp->fullIData(oldp+28,(vlSelf->PipelineCPU__DOT__m_Register__DOT__regs[0]),32);
+    bufp->fullIData(oldp+29,(vlSelf->PipelineCPU__DOT__m_Register__DOT__regs[1]),32);
+    bufp->fullIData(oldp+30,(vlSelf->PipelineCPU__DOT__m_Register__DOT__regs[2]),32);
+    bufp->fullIData(oldp+31,(vlSelf->PipelineCPU__DOT__m_Register__DOT__regs[3]),32);
+    bufp->fullIData(oldp+32,(vlSelf->PipelineCPU__DOT__m_Register__DOT__regs[4]),32);
+    bufp->fullIData(oldp+33,(vlSelf->PipelineCPU__DOT__m_Register__DOT__regs[5]),32);
+    bufp->fullIData(oldp+34,(vlSelf->PipelineCPU__DOT__m_Register__DOT__regs[6]),32);
+    bufp->fullIData(oldp+35,(vlSelf->PipelineCPU__DOT__m_Register__DOT__regs[7]),32);
+    bufp->fullIData(oldp+36,(vlSelf->PipelineCPU__DOT__m_Register__DOT__regs[8]),32);
+    bufp->fullIData(oldp+37,(vlSelf->PipelineCPU__DOT__m_Register__DOT__regs[9]),32);
+    bufp->fullIData(oldp+38,(vlSelf->PipelineCPU__DOT__m_Register__DOT__regs[10]),32);
+    bufp->fullIData(oldp+39,(vlSelf->PipelineCPU__DOT__m_Register__DOT__regs[11]),32);
+    bufp->fullIData(oldp+40,(vlSelf->PipelineCPU__DOT__m_Register__DOT__regs[12]),32);
+    bufp->fullIData(oldp+41,(vlSelf->PipelineCPU__DOT__m_Register__DOT__regs[13]),32);
+    bufp->fullIData(oldp+42,(vlSelf->PipelineCPU__DOT__m_Register__DOT__regs[14]),32);
+    bufp->fullIData(oldp+43,(vlSelf->PipelineCPU__DOT__m_Register__DOT__regs[15]),32);
+    bufp->fullIData(oldp+44,(vlSelf->PipelineCPU__DOT__m_Register__DOT__regs[16]),32);
+    bufp->fullIData(oldp+45,(vlSelf->PipelineCPU__DOT__m_Register__DOT__regs[17]),32);
+    bufp->fullIData(oldp+46,(vlSelf->PipelineCPU__DOT__m_Register__DOT__regs[18]),32);
+    bufp->fullIData(oldp+47,(vlSelf->PipelineCPU__DOT__m_Register__DOT__regs[19]),32);
+    bufp->fullIData(oldp+48,(vlSelf->PipelineCPU__DOT__m_Register__DOT__regs[20]),32);
+    bufp->fullIData(oldp+49,(vlSelf->PipelineCPU__DOT__m_Register__DOT__regs[21]),32);
+    bufp->fullIData(oldp+50,(vlSelf->PipelineCPU__DOT__m_Register__DOT__regs[22]),32);
+    bufp->fullIData(oldp+51,(vlSelf->PipelineCPU__DOT__m_Register__DOT__regs[23]),32);
+    bufp->fullIData(oldp+52,(vlSelf->PipelineCPU__DOT__m_Register__DOT__regs[24]),32);
+    bufp->fullIData(oldp+53,(vlSelf->PipelineCPU__DOT__m_Register__DOT__regs[25]),32);
+    bufp->fullIData(oldp+54,(vlSelf->PipelineCPU__DOT__m_Register__DOT__regs[26]),32);
+    bufp->fullIData(oldp+55,(vlSelf->PipelineCPU__DOT__m_Register__DOT__regs[27]),32);
+    bufp->fullIData(oldp+56,(vlSelf->PipelineCPU__DOT__m_Register__DOT__regs[28]),32);
+    bufp->fullIData(oldp+57,(vlSelf->PipelineCPU__DOT__m_Register__DOT__regs[29]),32);
+    bufp->fullIData(oldp+58,(vlSelf->PipelineCPU__DOT__m_Register__DOT__regs[30]),32);
+    bufp->fullIData(oldp+59,(vlSelf->PipelineCPU__DOT__m_Register__DOT__regs[31]),32);
+    bufp->fullIData(oldp+60,(vlSelf->PipelineCPU__DOT__IF_pc),32);
+    bufp->fullIData(oldp+61,(((IData)(4U) + vlSelf->PipelineCPU__DOT__IF_pc)),32);
+    bufp->fullIData(oldp+62,(((0x80U <= vlSelf->PipelineCPU__DOT__IF_pc)
+                               ? 0U : ((vlSelf->PipelineCPU__DOT__m_InstMem__DOT__insts
+                                        [(0x7fU & vlSelf->PipelineCPU__DOT__IF_pc)] 
                                         << 0x18U) | 
-                                       ((vlSelf->SingleCycleCPU__DOT__m_InstMem__DOT__insts
+                                       ((vlSelf->PipelineCPU__DOT__m_InstMem__DOT__insts
                                          [(0x7fU & 
                                            ((IData)(1U) 
-                                            + vlSelf->SingleCycleCPU__DOT__IF_pc))] 
+                                            + vlSelf->PipelineCPU__DOT__IF_pc))] 
                                          << 0x10U) 
-                                        | ((vlSelf->SingleCycleCPU__DOT__m_InstMem__DOT__insts
+                                        | ((vlSelf->PipelineCPU__DOT__m_InstMem__DOT__insts
                                             [(0x7fU 
                                               & ((IData)(2U) 
-                                                 + vlSelf->SingleCycleCPU__DOT__IF_pc))] 
+                                                 + vlSelf->PipelineCPU__DOT__IF_pc))] 
                                             << 8U) 
-                                           | vlSelf->SingleCycleCPU__DOT__m_InstMem__DOT__insts
+                                           | vlSelf->PipelineCPU__DOT__m_InstMem__DOT__insts
                                            [(0x7fU 
                                              & ((IData)(3U) 
-                                                + vlSelf->SingleCycleCPU__DOT__IF_pc))]))))),32);
-    bufp->fullIData(oldp+63,(vlSelf->SingleCycleCPU__DOT__ID_instruction),32);
-    bufp->fullCData(oldp+64,(vlSelf->SingleCycleCPU__DOT__ID_BranchCtl),4);
-    bufp->fullBit(oldp+65,(vlSelf->SingleCycleCPU__DOT__ID_immUse));
-    bufp->fullBit(oldp+66,(vlSelf->SingleCycleCPU__DOT__ID_memtoReg));
-    bufp->fullBit(oldp+67,(vlSelf->SingleCycleCPU__DOT__ID_regWrite));
-    bufp->fullBit(oldp+68,(vlSelf->SingleCycleCPU__DOT__Ex_regWrite));
-    bufp->fullBit(oldp+69,(vlSelf->SingleCycleCPU__DOT__Mem_regWrite));
-    bufp->fullBit(oldp+70,(vlSelf->SingleCycleCPU__DOT__Wb_regWrite));
-    bufp->fullBit(oldp+71,(vlSelf->SingleCycleCPU__DOT__ID_memRead));
-    bufp->fullBit(oldp+72,(vlSelf->SingleCycleCPU__DOT__Ex_memRead));
-    bufp->fullBit(oldp+73,(vlSelf->SingleCycleCPU__DOT__Mem_memRead));
-    bufp->fullBit(oldp+74,(vlSelf->SingleCycleCPU__DOT__ID_memWrite));
-    bufp->fullBit(oldp+75,(vlSelf->SingleCycleCPU__DOT__ID_branch));
-    bufp->fullBit(oldp+76,(vlSelf->SingleCycleCPU__DOT__ID_jump));
-    bufp->fullBit(oldp+77,(vlSelf->SingleCycleCPU__DOT__ID_pcUse));
-    bufp->fullCData(oldp+78,(vlSelf->SingleCycleCPU__DOT__ID_ALUOp),2);
-    bufp->fullIData(oldp+79,(vlSelf->SingleCycleCPU__DOT__Wb_writeData),32);
-    bufp->fullCData(oldp+80,(vlSelf->SingleCycleCPU__DOT__Ex_RegRd),5);
-    bufp->fullCData(oldp+81,(vlSelf->SingleCycleCPU__DOT__Mem_RegRd),5);
-    bufp->fullCData(oldp+82,(vlSelf->SingleCycleCPU__DOT__Wb_RegRd),5);
-    bufp->fullIData(oldp+83,(vlSelf->SingleCycleCPU__DOT__ID_imm),32);
-    bufp->fullIData(oldp+84,(vlSelf->SingleCycleCPU__DOT__aluSrc1),32);
-    bufp->fullIData(oldp+85,(vlSelf->SingleCycleCPU__DOT__aluSrc2),32);
-    bufp->fullIData(oldp+86,(vlSelf->SingleCycleCPU__DOT__rs1_Data),32);
-    bufp->fullIData(oldp+87,(vlSelf->SingleCycleCPU__DOT__rs2_Data),32);
-    bufp->fullIData(oldp+88,(vlSelf->SingleCycleCPU__DOT__Ex_ALUOut),32);
-    bufp->fullIData(oldp+89,(vlSelf->SingleCycleCPU__DOT__Mem_ALUOut),32);
-    bufp->fullCData(oldp+90,(vlSelf->SingleCycleCPU__DOT__ID_ALUCtl),4);
-    bufp->fullCData(oldp+91,(vlSelf->SingleCycleCPU__DOT__forwardA),2);
-    bufp->fullCData(oldp+92,(vlSelf->SingleCycleCPU__DOT__forwardB),2);
-    bufp->fullBit(oldp+93,(vlSelf->SingleCycleCPU__DOT____Vcellinp__m_HazardDetectUnit__Ex_jump_or_branch));
-    bufp->fullBit(oldp+94,(vlSelf->SingleCycleCPU__DOT__ID_Ex_flush));
-    bufp->fullBit(oldp+95,(vlSelf->SingleCycleCPU__DOT__IF_ID_freeze));
-    bufp->fullBit(oldp+96,(((~ (IData)(vlSelf->SingleCycleCPU__DOT____Vcellinp__m_HazardDetectUnit__Ex_jump_or_branch)) 
-                            & ((IData)(vlSelf->SingleCycleCPU__DOT__Ex_memRead) 
-                               & (((IData)(vlSelf->SingleCycleCPU__DOT__Ex_RegRd) 
-                                   == (0x1fU & (vlSelf->SingleCycleCPU__DOT__ID_instruction 
+                                                + vlSelf->PipelineCPU__DOT__IF_pc))]))))),32);
+    bufp->fullIData(oldp+63,(vlSelf->PipelineCPU__DOT__ID_instruction),32);
+    bufp->fullCData(oldp+64,(vlSelf->PipelineCPU__DOT__ID_BranchCtl),4);
+    bufp->fullBit(oldp+65,(vlSelf->PipelineCPU__DOT__ID_immUse));
+    bufp->fullBit(oldp+66,(vlSelf->PipelineCPU__DOT__ID_memtoReg));
+    bufp->fullBit(oldp+67,(vlSelf->PipelineCPU__DOT__ID_regWrite));
+    bufp->fullBit(oldp+68,(vlSelf->PipelineCPU__DOT__Ex_regWrite));
+    bufp->fullBit(oldp+69,(vlSelf->PipelineCPU__DOT__Mem_regWrite));
+    bufp->fullBit(oldp+70,(vlSelf->PipelineCPU__DOT__Wb_regWrite));
+    bufp->fullBit(oldp+71,(vlSelf->PipelineCPU__DOT__ID_memRead));
+    bufp->fullBit(oldp+72,(vlSelf->PipelineCPU__DOT__Ex_memRead));
+    bufp->fullBit(oldp+73,(vlSelf->PipelineCPU__DOT__Mem_memRead));
+    bufp->fullBit(oldp+74,(vlSelf->PipelineCPU__DOT__ID_memWrite));
+    bufp->fullBit(oldp+75,(vlSelf->PipelineCPU__DOT__ID_branch));
+    bufp->fullBit(oldp+76,(vlSelf->PipelineCPU__DOT__ID_jump));
+    bufp->fullBit(oldp+77,(vlSelf->PipelineCPU__DOT__ID_pcUse));
+    bufp->fullCData(oldp+78,(vlSelf->PipelineCPU__DOT__ID_ALUOp),2);
+    bufp->fullIData(oldp+79,(vlSelf->PipelineCPU__DOT__Wb_writeData),32);
+    bufp->fullCData(oldp+80,(vlSelf->PipelineCPU__DOT__Ex_RegRd),5);
+    bufp->fullCData(oldp+81,(vlSelf->PipelineCPU__DOT__Mem_RegRd),5);
+    bufp->fullCData(oldp+82,(vlSelf->PipelineCPU__DOT__Wb_RegRd),5);
+    bufp->fullIData(oldp+83,(vlSelf->PipelineCPU__DOT__ID_imm),32);
+    bufp->fullIData(oldp+84,(vlSelf->PipelineCPU__DOT__aluSrc1),32);
+    bufp->fullIData(oldp+85,(vlSelf->PipelineCPU__DOT__aluSrc2),32);
+    bufp->fullIData(oldp+86,(vlSelf->PipelineCPU__DOT__rs1_Data),32);
+    bufp->fullIData(oldp+87,(vlSelf->PipelineCPU__DOT__rs2_Data),32);
+    bufp->fullIData(oldp+88,(vlSelf->PipelineCPU__DOT__Ex_ALUOut),32);
+    bufp->fullIData(oldp+89,(vlSelf->PipelineCPU__DOT__Mem_ALUOut),32);
+    bufp->fullCData(oldp+90,(vlSelf->PipelineCPU__DOT__ID_ALUCtl),4);
+    bufp->fullCData(oldp+91,(vlSelf->PipelineCPU__DOT__forwardA),2);
+    bufp->fullCData(oldp+92,(vlSelf->PipelineCPU__DOT__forwardB),2);
+    bufp->fullBit(oldp+93,(vlSelf->PipelineCPU__DOT____Vcellinp__m_HazardDetectUnit__Ex_jump_or_branch));
+    bufp->fullBit(oldp+94,(vlSelf->PipelineCPU__DOT__ID_Ex_flush));
+    bufp->fullBit(oldp+95,(vlSelf->PipelineCPU__DOT__IF_ID_freeze));
+    bufp->fullBit(oldp+96,(((~ (IData)(vlSelf->PipelineCPU__DOT____Vcellinp__m_HazardDetectUnit__Ex_jump_or_branch)) 
+                            & ((IData)(vlSelf->PipelineCPU__DOT__Ex_memRead) 
+                               & (((IData)(vlSelf->PipelineCPU__DOT__Ex_RegRd) 
+                                   == (0x1fU & (vlSelf->PipelineCPU__DOT__ID_instruction 
                                                 >> 0xfU))) 
-                                  | ((IData)(vlSelf->SingleCycleCPU__DOT__Ex_RegRd) 
-                                     == (0x1fU & (vlSelf->SingleCycleCPU__DOT__ID_instruction 
+                                  | ((IData)(vlSelf->PipelineCPU__DOT__Ex_RegRd) 
+                                     == (0x1fU & (vlSelf->PipelineCPU__DOT__ID_instruction 
                                                   >> 0x14U))))))));
-    bufp->fullBit(oldp+97,((1U & (vlSelf->SingleCycleCPU__DOT__ID_instruction 
+    bufp->fullBit(oldp+97,((1U & (vlSelf->PipelineCPU__DOT__ID_instruction 
                                   >> 0x1eU))));
-    bufp->fullCData(oldp+98,((7U & (vlSelf->SingleCycleCPU__DOT__ID_instruction 
+    bufp->fullCData(oldp+98,((7U & (vlSelf->PipelineCPU__DOT__ID_instruction 
                                     >> 0xcU))),3);
-    bufp->fullCData(oldp+99,((0x7fU & vlSelf->SingleCycleCPU__DOT__ID_instruction)),7);
-    bufp->fullCData(oldp+100,((0x1fU & (vlSelf->SingleCycleCPU__DOT__ID_instruction 
+    bufp->fullCData(oldp+99,((0x7fU & vlSelf->PipelineCPU__DOT__ID_instruction)),7);
+    bufp->fullCData(oldp+100,((0x1fU & (vlSelf->PipelineCPU__DOT__ID_instruction 
                                         >> 0xfU))),5);
-    bufp->fullCData(oldp+101,((0x1fU & (vlSelf->SingleCycleCPU__DOT__ID_instruction 
+    bufp->fullCData(oldp+101,((0x1fU & (vlSelf->PipelineCPU__DOT__ID_instruction 
                                         >> 0x14U))),5);
-    bufp->fullCData(oldp+102,((0x1fU & (vlSelf->SingleCycleCPU__DOT__ID_instruction 
+    bufp->fullCData(oldp+102,((0x1fU & (vlSelf->PipelineCPU__DOT__ID_instruction 
                                         >> 7U))),5);
     bufp->fullBit(oldp+103,(vlSelf->clk));
     bufp->fullBit(oldp+104,(vlSelf->start));
@@ -552,50 +552,50 @@ VL_ATTR_COLD void VSingleCycleCPU___024root__trace_full_sub_0(VSingleCycleCPU___
     bufp->fullIData(oldp+134,(vlSelf->r[29]),32);
     bufp->fullIData(oldp+135,(vlSelf->r[30]),32);
     bufp->fullIData(oldp+136,(vlSelf->r[31]),32);
-    bufp->fullIData(oldp+137,((((~ (IData)(vlSelf->SingleCycleCPU__DOT____Vcellinp__m_HazardDetectUnit__Ex_jump_or_branch)) 
-                                & ((IData)(vlSelf->SingleCycleCPU__DOT__Ex_memRead) 
-                                   & (((IData)(vlSelf->SingleCycleCPU__DOT__Ex_RegRd) 
+    bufp->fullIData(oldp+137,((((~ (IData)(vlSelf->PipelineCPU__DOT____Vcellinp__m_HazardDetectUnit__Ex_jump_or_branch)) 
+                                & ((IData)(vlSelf->PipelineCPU__DOT__Ex_memRead) 
+                                   & (((IData)(vlSelf->PipelineCPU__DOT__Ex_RegRd) 
                                        == (0x1fU & 
-                                           (vlSelf->SingleCycleCPU__DOT__ID_instruction 
+                                           (vlSelf->PipelineCPU__DOT__ID_instruction 
                                             >> 0xfU))) 
-                                      | ((IData)(vlSelf->SingleCycleCPU__DOT__Ex_RegRd) 
+                                      | ((IData)(vlSelf->PipelineCPU__DOT__Ex_RegRd) 
                                          == (0x1fU 
-                                             & (vlSelf->SingleCycleCPU__DOT__ID_instruction 
+                                             & (vlSelf->PipelineCPU__DOT__ID_instruction 
                                                 >> 0x14U))))))
-                                ? vlSelf->SingleCycleCPU__DOT__IF_pc
-                                : (((IData)(vlSelf->SingleCycleCPU__DOT____VdfgTmp_h13f1118f__0) 
-                                    | (IData)(vlSelf->SingleCycleCPU__DOT__Ex_jump))
-                                    ? vlSelf->SingleCycleCPU__DOT__Ex_ALUOut
+                                ? vlSelf->PipelineCPU__DOT__IF_pc
+                                : (((IData)(vlSelf->PipelineCPU__DOT____VdfgTmp_h13f1118f__0) 
+                                    | (IData)(vlSelf->PipelineCPU__DOT__Ex_jump))
+                                    ? vlSelf->PipelineCPU__DOT__Ex_ALUOut
                                     : ((IData)(4U) 
-                                       + vlSelf->SingleCycleCPU__DOT__IF_pc)))),32);
-    bufp->fullBit(oldp+138,(((8U & (IData)(vlSelf->SingleCycleCPU__DOT__Ex_BranchCtl))
-                              ? ((4U & (IData)(vlSelf->SingleCycleCPU__DOT__Ex_BranchCtl))
-                                  ? ((~ ((IData)(vlSelf->SingleCycleCPU__DOT__Ex_BranchCtl) 
+                                       + vlSelf->PipelineCPU__DOT__IF_pc)))),32);
+    bufp->fullBit(oldp+138,(((8U & (IData)(vlSelf->PipelineCPU__DOT__Ex_BranchCtl))
+                              ? ((4U & (IData)(vlSelf->PipelineCPU__DOT__Ex_BranchCtl))
+                                  ? ((~ ((IData)(vlSelf->PipelineCPU__DOT__Ex_BranchCtl) 
                                          >> 1U)) & 
-                                     ((1U & (IData)(vlSelf->SingleCycleCPU__DOT__Ex_BranchCtl))
-                                       ? (vlSelf->SingleCycleCPU__DOT__rs1_Data 
-                                          != vlSelf->SingleCycleCPU__DOT__rs2_Data)
-                                       : (vlSelf->SingleCycleCPU__DOT__rs1_Data 
-                                          == vlSelf->SingleCycleCPU__DOT__rs2_Data)))
-                                  : (((IData)(vlSelf->SingleCycleCPU__DOT__Ex_BranchCtl) 
-                                      >> 1U) & ((IData)(vlSelf->SingleCycleCPU__DOT__Ex_BranchCtl) 
-                                                & VL_GTES_III(32, vlSelf->SingleCycleCPU__DOT__rs1_Data, vlSelf->SingleCycleCPU__DOT__rs2_Data))))
+                                     ((1U & (IData)(vlSelf->PipelineCPU__DOT__Ex_BranchCtl))
+                                       ? (vlSelf->PipelineCPU__DOT__rs1_Data 
+                                          != vlSelf->PipelineCPU__DOT__rs2_Data)
+                                       : (vlSelf->PipelineCPU__DOT__rs1_Data 
+                                          == vlSelf->PipelineCPU__DOT__rs2_Data)))
+                                  : (((IData)(vlSelf->PipelineCPU__DOT__Ex_BranchCtl) 
+                                      >> 1U) & ((IData)(vlSelf->PipelineCPU__DOT__Ex_BranchCtl) 
+                                                & VL_GTES_III(32, vlSelf->PipelineCPU__DOT__rs1_Data, vlSelf->PipelineCPU__DOT__rs2_Data))))
                               : (IData)(((7U == (7U 
-                                                 & (IData)(vlSelf->SingleCycleCPU__DOT__Ex_BranchCtl))) 
-                                         & VL_LTS_III(32, vlSelf->SingleCycleCPU__DOT__rs1_Data, vlSelf->SingleCycleCPU__DOT__rs2_Data))))));
-    bufp->fullIData(oldp+139,(vlSelf->SingleCycleCPU__DOT__m_Register__DOT__regs
-                              [(0x1fU & (vlSelf->SingleCycleCPU__DOT__ID_instruction 
+                                                 & (IData)(vlSelf->PipelineCPU__DOT__Ex_BranchCtl))) 
+                                         & VL_LTS_III(32, vlSelf->PipelineCPU__DOT__rs1_Data, vlSelf->PipelineCPU__DOT__rs2_Data))))));
+    bufp->fullIData(oldp+139,(vlSelf->PipelineCPU__DOT__m_Register__DOT__regs
+                              [(0x1fU & (vlSelf->PipelineCPU__DOT__ID_instruction 
                                          >> 0xfU))]),32);
-    bufp->fullIData(oldp+140,(vlSelf->SingleCycleCPU__DOT__m_Register__DOT__regs
-                              [(0x1fU & (vlSelf->SingleCycleCPU__DOT__ID_instruction 
+    bufp->fullIData(oldp+140,(vlSelf->PipelineCPU__DOT__m_Register__DOT__regs
+                              [(0x1fU & (vlSelf->PipelineCPU__DOT__ID_instruction 
                                          >> 0x14U))]),32);
-    bufp->fullIData(oldp+141,(vlSelf->SingleCycleCPU__DOT__Mem_readData3),32);
-    bufp->fullIData(oldp+142,((((IData)(vlSelf->SingleCycleCPU__DOT____VdfgTmp_h13f1118f__0) 
-                                | (IData)(vlSelf->SingleCycleCPU__DOT__Ex_jump))
-                                ? vlSelf->SingleCycleCPU__DOT__Ex_ALUOut
-                                : ((IData)(4U) + vlSelf->SingleCycleCPU__DOT__IF_pc))),32);
-    bufp->fullBit(oldp+143,(((IData)(vlSelf->SingleCycleCPU__DOT____VdfgTmp_h13f1118f__0) 
-                             | (IData)(vlSelf->SingleCycleCPU__DOT__Ex_jump))));
+    bufp->fullIData(oldp+141,(vlSelf->PipelineCPU__DOT__Mem_readData3),32);
+    bufp->fullIData(oldp+142,((((IData)(vlSelf->PipelineCPU__DOT____VdfgTmp_h13f1118f__0) 
+                                | (IData)(vlSelf->PipelineCPU__DOT__Ex_jump))
+                                ? vlSelf->PipelineCPU__DOT__Ex_ALUOut
+                                : ((IData)(4U) + vlSelf->PipelineCPU__DOT__IF_pc))),32);
+    bufp->fullBit(oldp+143,(((IData)(vlSelf->PipelineCPU__DOT____VdfgTmp_h13f1118f__0) 
+                             | (IData)(vlSelf->PipelineCPU__DOT__Ex_jump))));
     bufp->fullIData(oldp+144,(4U),32);
     bufp->fullBit(oldp+145,(0U));
     bufp->fullIData(oldp+146,(0x20U),32);

@@ -1,4 +1,4 @@
-module SingleCycleCPU (
+module PipelineCPU (
     input clk,
     input start,
     output signed [31:0] r [0:31]
@@ -8,7 +8,7 @@ module SingleCycleCPU (
 // When input start is zero, cpu should reset
 // When input start is high, cpu start running
 
-// TODO: connect wire to realize SingleCycleCPU
+// TODO: connect wire to realize PipelineCPU
 // The following provides simple template,
 // you can modify it as you wish except I/O pin and register module
 

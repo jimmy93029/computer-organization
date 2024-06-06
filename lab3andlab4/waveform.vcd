@@ -36,7 +36,7 @@ $timescale 1s $end
   $var wire 32 5! r[8] [31:0] $end
   $var wire 32 6! r[9] [31:0] $end
   $var wire  1 ,! start $end
-  $scope module SingleCycleCPU $end
+  $scope module PipelineCPU $end
    $var wire  4 < Ex_ALUCtl [3:0] $end
    $var wire 32 z Ex_ALUOut [31:0] $end
    $var wire  4 ( Ex_BranchCtl [3:0] $end

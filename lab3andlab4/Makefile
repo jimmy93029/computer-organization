@@ -1,11 +1,11 @@
-.PHONY: test1
+.PHONY: test1 
 test1:
 	make clean
-	verilator --build --top-module SingleCycleCPU SingleCycleCPU.v Adder.v ALU_Branch_Ctrl.v ALU.v BranchComp.v Control.v DataMemory.v \
+	verilator --build --top-module PipelineCPU PipelineCPU.v Adder.v ALU_Branch_Ctrl.v ALU.v BranchComp.v Control.v DataMemory.v \
 	ForwardUnit.v HazardDetectUnit.v ImmGen.v InstructionMemory.v Mux2to1.v Mux3to1.v PC.v \
 	Register.v Pipe_reg_IF_ID.v Pipe_reg_ID_Ex.v Pipe_reg_Ex_Mem.v Pipe_reg_Mem_Wb.v \
 	--exe example_testbench.cpp -cc --trace -Wall
-	./obj_dir/VSingleCycleCPU
+	./obj_dir/VPipelineCPU
 
 .PHONY: clean
 clean:
