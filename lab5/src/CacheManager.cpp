@@ -45,7 +45,7 @@ unsigned int* CacheManager::find(unsigned int addr) {
     {
         return &((*cache)[pos][0]);
     }
-    
+
     return nullptr;
 }
 
@@ -117,4 +117,5 @@ int CacheManager::findAddr(unsigned int addr)
             return i;
         }
     }
+    return -1;
 }

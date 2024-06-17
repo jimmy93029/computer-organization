@@ -26,7 +26,7 @@ private:
     std::vector<int> counter;
     std::pair<unsigned, unsigned> directed_map(unsigned int addr);
     int replace(unsigned int index, unsigned value);
-    int findAddr(unsigned int addr)
+    int findAddr(unsigned int addr);
 
 public:
 
