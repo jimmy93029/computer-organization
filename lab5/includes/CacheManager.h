@@ -2,6 +2,7 @@
 
 #include "Cache.h"
 #include "Memory.h"
+#include <tuple>
 
 
 class CacheManager
@@ -19,14 +20,18 @@ private:
 * 6. Let's do lab peacefully together!!
 */
     Memory *memory;
-    Cache *cache;
-    unsigned int len;       // bytes
-    unsigned int tag_bits;
+    Cache *cache;  
+    std::vector<int> counter; 
+
     int ways;
-    std::vector<int> counter;
-    std::pair<unsigned, unsigned> directed_map(unsigned int addr);
-    int replace(unsigned int index, unsigned value);
-    int findAddr(unsigned int addr);
+    unsigned int block_len;    
+    unsigned int cache_len;
+    
+    std::tuple<unsigned, unsigned, unsigned> directed_map(unsigned int addr);
+    std::tuple<unsigned, long long, unsigned> findAddr(unsigned int addr);
+
+    int LRU(unsigned int addr);
+    void blockReplace(unsigned int addr, int pos);
 
 public:
 
