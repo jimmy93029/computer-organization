@@ -6,14 +6,19 @@ diary: [diary of computer organization](https://hackmd.io/cuwvQXPuQt6DtWr_r6M5yw
 the code is not throughly checked
 &emsp;
 ## lab1, 2: Single cycle CPU 
-[hw link](https://nycu-caslab.github.io/CO2024/labs/Lab%202.html)
-
 the implementation of RICS-V Single cycle CPU refers to the following structures 
 
-<img src="images/image-1.png" width="700" height="450">
-<img src="images/image-2.png" width="600" height="450">
+<img src="images/image-1.png" width="600" height="400">
+<img src="images/image-2.png" width="550" height="400">
 
+## lab 3, 4: Pipeline CPU
 
+<img src="images/image-3.png" width="600" height="400">
+
+## lab 5: Cache
+Reaching the best performance with 3-way 8-block len
+please refers to CacheManager.cpp
+&emsp;
 Note1 : using gtkwave command 
 ```
 uset GTK_PATH   # you may need it when using vscode
