@@ -1,29 +1,32 @@
-# CSCS10014: Computer Organization class lab homework
+# CSCS10014: Computer Organization Class Lab Homework
 
-diary: [diary of computer organization](https://hackmd.io/cuwvQXPuQt6DtWr_r6M5yw)
-&emsp;
-## lab0 : fulladder and ALU
-the code is not throughly checked
-&emsp;
-## lab1, 2: Single cycle CPU 
-the implementation of RICS-V Single cycle CPU refers to the following structures 
+## Supplement
+resources : [61c](https://cs61c.org/sp24/), 
+[computer organization and design](http://home.ustc.edu.cn/~louwenqi/reference_books_tools/Computer%20Organization%20and%20Design%20RISC-V%20edition.pdf)
 
-<img src="images/image-1.png" width="600" height="400">
-<img src="images/image-2.png" width="550" height="400">
+## Lab 0: Full Adder and ALU
+The code is not thoroughly checked.
 
-## lab 3, 4: Pipeline CPU
+## Lab 1, 2: Single Cycle CPU
+The implementation of RISC-V Single Cycle CPU refers to the following structures:
 
-<img src="images/image-3.png" width="600" height="400">
+![Single Cycle CPU Structure 1](images/image-1.png)
+![Single Cycle CPU Structure 2](images/image-2.png)
 
-## lab 5: Cache
-Reaching the best performance with 3-way 8-block len
-please refers to CacheManager.cpp
-&emsp;
-Note1 : using gtkwave command 
+## Lab 3, 4: Pipeline CPU
+The following picture is drawn by my friend 廖毅臻
+![Pipeline CPU Structure](images/image-3.png)
+
+## Lab 5: Cache
+Reaching the best performance with a 3-way 8-block length. Please refer to `CacheManager.cpp`.
+
+## Notes
+
+### Note 1: Using gtkwave Command
+```bash
+# You may need it when using VSCode
+export GTK_PATH
+gtkwave waveform.vcd
 ```
-uset GTK_PATH   # you may need it when using vscode
-gtkwave waveform.vcd 
-```
-
-Note2 : using TEST_INSTRUCTIONS.txt
+### Note2 : using TEST_INSTRUCTIONS.txt
 we need to ensure the last line of txt is blank
