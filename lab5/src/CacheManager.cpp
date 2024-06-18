@@ -16,7 +16,7 @@ CacheManager::CacheManager(Memory *memory, Cache *cache)
     this->memory = memory;
     this->cache = cache;
     ways = 3;
-    block_len = 4;
+    block_len = 8;
 
     cache->set_block_size(4 * block_len);
     cache_len = cache->get_len();
